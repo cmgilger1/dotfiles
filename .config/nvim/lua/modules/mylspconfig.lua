@@ -1,6 +1,33 @@
+local lsp_zero = require('lsp-zero')
+
+lsp_zero.on_attach(function(client, bufnr)
+  -- see :help lsp-zero-keybindings
+  -- to learn the available actions
+  lsp_zero.default_keymaps({buffer = bufnr})
+end)
+
 local lspconfig = require('lspconfig')
+vim.lsp.set_log_level("trace")
+
 lspconfig.clangd.setup{
-    -- on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { 'clangd',
+        '--background-index',
+        '-j=16',
+        '--completion-style=detailed',
+        '--header-insertion=iwyu',
+        '--clang-tidy',
+        '--log=verbose',
+        '--enable-config',
+        '--query-driver=/home/caroline/qnx710/host/linux/x86_64/usr/bin/*g++,/home/caroline/qnx710/host/linux/x86_64/usr/bin/*gcc'},
+    init_options = {
+      usePlaceholders = true,
+      completeUnimported = true,
+      clangdFileStatus = true,
+      semanticHighlighting = true
+    },
+    on_attach = on_attach,
+    flags = { debounce_text_changes = 150 },
     -- root_dir = root_pattern("compile_commands.json", ".git")
     on_new_config = function(new_config, new_cwd)
         local status, cmake = pcall(require, "cmake-tools")
@@ -17,32 +44,33 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 vim.keymap.set('n', '<M-o>', '<cmd>ClangdSwitchSourceHeader<CR>')
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  desc = 'LSP actions',
+  callback = function(event)
+    local opts = {buffer = event.buf}
 
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<space>h', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<leader>k', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+
+    vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+    vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
+    vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts) 
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
-  end,
+  end
 })
 
-return lspconfig
+return 
+{
+    lspconfig = lspconfig,
+    lsp_zero  = lsp_zero
+}
+    

@@ -15,12 +15,13 @@ telescope.setup({
     vimgrep_arguments = {
       "rg",
       "--color=never",
+      "--no-ignore",
       "--no-heading",
       "--with-filename",
       "--line-number",
       "--column",
       "--smart-case",
-      "--trim" -- add this value
+      "--trim"
     },
     layout_config = {
         prompt_position = 'top'
@@ -36,14 +37,14 @@ telescope.setup({
               "--line-number",
               "--column",
               "--hidden",
-              "--no-ignore",
               "--glob=!.cache",
               "--glob=!.git",
-              "--glob=!lib",
               "--glob=!build",
               "--files",
               "--smart-case",
           },
+          no_ignore = true,
+          no_ignore_parent = true,
           mappings = {
               n = {
                   ['J'] = actions.preview_scrolling_down,
@@ -121,7 +122,7 @@ local function grep_at_current_tree_node()
     -- end
 end
 
-vim.keymap.set('n', '<leader>ff', t.find_files, {})
+vim.keymap.set('n', '<C-p>', t.find_files, {})
 vim.keymap.set('n', '<leader>lg', grep_at_current_tree_node, {})
 vim.keymap.set('n', '<leader>fs', t.grep_string, {})
 vim.keymap.set('n', '<leader>fb', t.buffers, {})

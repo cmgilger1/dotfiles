@@ -4,7 +4,7 @@ if not set -q $WEZTERM_PANE
   set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$WEZTERM_PANE"
 end
 
-set -x FZF_DEFAULT_COMMAND 'fd --type file --hidden --no-ignore --exclude .git --exclude build --exclude lib --exclude tags'
+set -x FZF_DEFAULT_COMMAND 'fd --type file --hidden --no-ignore --exclude .git --exclude build --exclude tags'
 set -x FZF_DEFAULT_OPTS '--height 10% --reverse --no-bold'
 
 # disable underlining paths by default

@@ -20,7 +20,6 @@ Plug ('nanozuki/tabby.nvim')
 Plug ('catppuccin/nvim', { as = 'catppuccin' })
 
 -- code editor plugins
-Plug ('neovim/nvim-lspconfig')
 Plug ('tpope/vim-commentary')
 Plug ('nvim-lualine/lualine.nvim')
 Plug ('christoomey/vim-tmux-navigator')
@@ -28,15 +27,17 @@ Plug ('nvim-treesitter/nvim-treesitter')
 Plug ('iamcco/markdown-preview.nvim', { ['do'] = vim.fn['mkdp#util#install()'], ['for'] = {'markdown', 'vim-plug'}})
 
 -- auto completion plugins
-Plug ('hrsh7th/cmp-nvim-lsp')
 Plug ('hrsh7th/cmp-buffer')
 Plug ('hrsh7th/cmp-path')
 Plug ('hrsh7th/cmp-cmdline')
-Plug ('hrsh7th/nvim-cmp')
-
--- snippet plugins
-Plug ('L3MON4D3/LuaSnip', { tag = 'v2.1.0', ['do'] = 'make install_jsregexp'})
 Plug ('saadparwaiz1/cmp_luasnip')
+
+-- lsp zero config
+Plug ('neovim/nvim-lspconfig')
+Plug ('L3MON4D3/LuaSnip')
+Plug ('hrsh7th/nvim-cmp')
+Plug ('hrsh7th/cmp-nvim-lsp')
+Plug ('VonHeikemen/lsp-zero.nvim', { ['branch'] = 'v3.x'})
 
 -- git plugins
 Plug ('tpope/vim-fugitive')
@@ -89,8 +90,8 @@ vim.keymap.set('n', '>', ';', {}) -- remap ; (leader) to >
 vim.keymap.set('n', '<', ',', {}) -- because this makes sense
 vim.keymap.set('n', '<leader>nh', '<cmd>nohl<cr>', {}) -- toggle nohl
 vim.keymap.set('n', '<leader>j', 'J', {}) -- first map <leader>j to join()
-vim.keymap.set('n', 'J', '<C-d>', {})   -- then map J & K to scroll
-vim.keymap.set('n', 'K', '<C-u>', {})
+vim.keymap.set('n', 'J', '<C-f>zz', {})   -- then map J & K to scroll
+vim.keymap.set('n', 'K', '<C-b>zz', {})
 vim.keymap.set('n', 'L', '<cmd>tabn<cr>', {})
 vim.keymap.set('n', 'H', '<cmd>tabp<cr>', {})
 vim.keymap.set('n', '<leader>1', '1gt', {})
@@ -114,10 +115,23 @@ vim.keymap.set('i', '<M-l>', '<Right>', {});
 vim.keymap.set('i', '<M-k>', '<Up>', {});
 vim.keymap.set('i', '<M-j>', '<Down>', {});
 
-vim.keymap.set({'n', 'i', 'v'}, '<C-h>', '<C-w>h', {});
-vim.keymap.set({'n', 'i', 'v'}, '<C-l>', '<C-w>l', {});
-vim.keymap.set({'n', 'i', 'v'}, '<C-k>', '<C-w>k', {});
-vim.keymap.set({'n', 'i', 'v'}, '<C-j>', '<C-w>j', {});
+vim.keymap.set({'n', 'i', 'v'}, '<C-h>', '<C-w>h', {})
+vim.keymap.set({'n', 'i', 'v'}, '<C-l>', '<C-w>l', {})
+vim.keymap.set({'n', 'i', 'v'}, '<C-k>', '<C-w>k', {})
+vim.keymap.set({'n', 'i', 'v'}, '<C-j>', '<C-w>j', {})
+
+
+function toggle_quickfix()
+ local windows = vim.fn.getwininfo()
+ for _, win in pairs(windows) do
+   if win["quickfix"] == 1 then
+     vim.cmd.cclose()
+     return
+   end
+ end
+ vim.cmd.copen()
+end
+vim.keymap.set({'n'}, '<leader>qf', toggle_quickfix, {})
 
 require('modules.mytelescope')
 require('modules.mycatppuccin')
@@ -126,8 +140,7 @@ require('modules.mygitsigns')
 require('modules.mynvimtree')
 require('modules.cmakelualine')
 require('modules.mycmaketools')
-require('modules.myluasnip')
-require('modules.mynvimcmp')
 require('modules.mygitblame')
 require('modules.mytreesitter')
 require('modules.mytabby')
+require('modules.mycmp')
