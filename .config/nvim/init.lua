@@ -1,56 +1,21 @@
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/plugins')
-
--- helper plugins
-Plug ('tpope/vim-sensible')
-Plug ('nvim-lua/plenary.nvim')
-Plug ('rcarriga/nvim-notify')
-Plug ('nvim-tree/nvim-web-devicons')
-
--- fuzzy finder plugins
-Plug ('nvim-telescope/telescope.nvim')
-Plug ('junegunn/fzf', { ['do'] = vim.fn['fzf#install()'] })
-Plug ('junegunn/fzf.vim')
-
--- file tree plugins
-Plug ('nvim-tree/nvim-tree.lua')
-Plug ('nanozuki/tabby.nvim')
-
--- colors plugins
-Plug ('catppuccin/nvim', { as = 'catppuccin' })
-
--- code editor plugins
-Plug ('tpope/vim-commentary')
-Plug ('nvim-lualine/lualine.nvim')
-Plug ('christoomey/vim-tmux-navigator')
-Plug ('nvim-treesitter/nvim-treesitter')
-Plug ('iamcco/markdown-preview.nvim', { ['do'] = vim.fn['mkdp#util#install()'], ['for'] = {'markdown', 'vim-plug'}})
-
--- auto completion plugins
-Plug ('hrsh7th/cmp-buffer')
-Plug ('hrsh7th/cmp-path')
-Plug ('hrsh7th/cmp-cmdline')
-Plug ('saadparwaiz1/cmp_luasnip')
-
--- lsp zero config
-Plug ('neovim/nvim-lspconfig')
-Plug ('L3MON4D3/LuaSnip')
-Plug ('hrsh7th/nvim-cmp')
-Plug ('hrsh7th/cmp-nvim-lsp')
-Plug ('VonHeikemen/lsp-zero.nvim', { ['branch'] = 'v3.x'})
-
--- git plugins
-Plug ('tpope/vim-fugitive')
-Plug ('lewis6991/gitsigns.nvim')
-Plug ('FabijanZulj/blame.nvim')
-
--- cmake / build tools plugins
-Plug ('Civitasv/cmake-tools.nvim')
-
-vim.call('plug#end')
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
 
 -- set leader to ;
 vim.g.mapleader=';'
+vim.g.maplocalleader=';'
+
+require('lazy').setup('plugins')
 
 -- needed for nvim-tree
 vim.g.loaded_netrw = 1
