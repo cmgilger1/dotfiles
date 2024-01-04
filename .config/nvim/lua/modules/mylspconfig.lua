@@ -6,6 +6,13 @@ lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
 
+lsp_zero.set_sign_icons({
+  error = '✘',
+  warn = '▲',
+  hint = '⚑',
+  info = '»'
+})
+
 local lspconfig = require('lspconfig')
 vim.lsp.set_log_level("trace")
 
@@ -17,7 +24,6 @@ lspconfig.clangd.setup{
         '--completion-style=detailed',
         '--header-insertion=iwyu',
         '--clang-tidy',
-        '--log=verbose',
         '--enable-config',
         '--query-driver=/home/caroline/qnx710/host/linux/x86_64/usr/bin/*g++,/home/caroline/qnx710/host/linux/x86_64/usr/bin/*gcc'},
     init_options = {
@@ -28,7 +34,6 @@ lspconfig.clangd.setup{
     },
     on_attach = on_attach,
     flags = { debounce_text_changes = 150 },
-    -- root_dir = root_pattern("compile_commands.json", ".git")
     on_new_config = function(new_config, new_cwd)
         local status, cmake = pcall(require, "cmake-tools")
         if status then
@@ -36,6 +41,15 @@ lspconfig.clangd.setup{
         end
     end,
 }
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+    vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+        virtual_text = false,
+        signs = true,
+        underline = false
+    }
+)
 
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -66,6 +80,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.buf.format { async = true }
     end, opts)
   end
+})
+
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = { "clangd", "cmake", "lua_ls", "pylsp" },
+  handlers = {
+    lsp_zero.default_setup,
+  },
 })
 
 return 

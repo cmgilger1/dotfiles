@@ -1,5 +1,6 @@
 local api = require("nvim-tree.api")
-
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 local function edit_or_open()
   local node = api.tree.get_node_under_cursor()
 
@@ -44,6 +45,8 @@ local function my_on_attach(bufnr)
 end
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
+  disable_netrw = true,
+  hijack_netrw = true,
   hijack_cursor = true,
   view = {
     width = 40,

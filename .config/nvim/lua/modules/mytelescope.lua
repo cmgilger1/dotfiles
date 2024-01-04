@@ -16,6 +16,7 @@ telescope.setup({
       "rg",
       "--color=never",
       "--no-ignore",
+      "--glob=!build",
       "--no-heading",
       "--with-filename",
       "--line-number",
@@ -110,6 +111,7 @@ telescope.setup({
       }
   }
 })
+telescope.load_extension('fzf')
 
 -- live_grep current node
 local t = require('telescope.builtin')
