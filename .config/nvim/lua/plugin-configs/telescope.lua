@@ -1,4 +1,9 @@
-local telescope = require('telescope')
+local trouble = require("trouble.providers.telescope")
+local telescope = require("telescope")
+telescope.load_extension("aerial")
+telescope.load_extension("notify")
+telescope.load_extension("noice")
+telescope.load_extension("projects")
 local actions = require('telescope.actions')
 telescope.setup({
   defaults = {
@@ -6,6 +11,13 @@ telescope.setup({
       -- i = {
       --   ["<esc>"] = actions.close
       -- },
+      i = {
+          ["<M-j>"] = actions.move_selection_next,
+          ["<M-k>"] = actions.move_selection_previous,
+          ["<Tab>"] = actions.move_selection_next,
+          ["<S-Tab>"] = actions.move_selection_previous
+      }
+
     },
     prompt_prefix = "   ",
     selection_caret = " ❯ ",
@@ -111,25 +123,3 @@ telescope.setup({
       }
   }
 })
-telescope.load_extension('fzf')
-
--- live_grep current node
-local t = require('telescope.builtin')
-local function grep_at_current_tree_node()
-    -- local node = require('nvim-tree.api').tree.get_node_under_cursor()
-    -- if not node then 
-        t.live_grep()
-    -- else
-    --     t.live_grep({search_dirs = {node.absolute_path}})
-    -- end
-end
-
-vim.keymap.set('n', '<C-p>', t.find_files, {})
-vim.keymap.set('n', '<leader>lg', grep_at_current_tree_node, {})
-vim.keymap.set('n', '<leader>fs', t.grep_string, {})
-vim.keymap.set('n', '<leader>fb', t.buffers, {})
-vim.keymap.set('n', '<leader>fh', t.help_tags, {})
-vim.keymap.set('n', '<leader>co', t.git_commits, {})
-vim.keymap.set('n', '<leader>fco', t.git_bcommits, {})
-vim.keymap.set('n', '<leader>br', t.git_branches, {})
-vim.keymap.set('n', '<leader>gs', t.git_status, {})

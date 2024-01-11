@@ -23,3 +23,5 @@ bind -e \el
 bind \el forward-char
 
 set -x DISPLAY 172.17.80.1:0
+
+fish_add_path -p "$HOME/bin/cmake-3.28.1-linux-x86_64/bin/"
