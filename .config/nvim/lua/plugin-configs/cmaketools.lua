@@ -37,15 +37,14 @@ cmake.setup {
                 new_task_opts = {
                     strategy = {
                         "toggleterm",
-                        direction = "horizontal",
                         autos_croll = true,
                         quit_on_exit = "success"
                     }
                 }, -- options to pass into the `overseer.new_task` command
                 on_new_task = function(task)
-                    require("overseer").open(
-                    { enter = false, direction = "right" }
-                    )
+                    -- require("overseer").open(
+                    -- { enter = false, direction = "right" }
+                    -- )
                 end,   -- a function that gets overseer.Task when it is created, before calling `task:start`
             },
             terminal = {
@@ -67,7 +66,7 @@ cmake.setup {
         },
     },
     cmake_runner = { -- runner to use
-        name = "terminal", -- name of the runner
+        name = "quickfix", -- name of the runner
         opts = {}, -- the options the runner will get, possible values depend on the runner type. See `default_opts` for possible values.
         default_opts = { -- a list of default and possible values for runners
             quickfix = {
@@ -81,7 +80,6 @@ cmake.setup {
                 new_task_opts = {
                     strategy = {
                         "toggleterm",
-                        direction = "horizontal",
                         autos_croll = true,
                         quit_on_exit = "success"
                     }

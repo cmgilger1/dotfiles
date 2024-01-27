@@ -82,6 +82,9 @@ telescope.setup({
               }
           }
       },
+      buffers = {
+          initial_mode = 'normal'
+      },
       git_bcommits = {
           mappings = {
               n = {

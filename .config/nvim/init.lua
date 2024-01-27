@@ -1,1 +1,1 @@
-require('core_init')
+require('config_init')

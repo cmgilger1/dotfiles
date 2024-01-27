@@ -30,12 +30,18 @@ map('n', '<leader>j', 'J')              -- first map <leader>j to join()
 -- Neoscroll
 local t = {}
 -- Syntax: t[keys] = {function, {function arguments}}
-t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '350', [['sine']] } }
-t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']] } }
+t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '200', [['sine']] } }
+t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '200', [['sine']] } }
 -- Use the "circular" easing function
 t['K'] = { 'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', '200', [['circular']] } }
 t['J'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '200', [['circular']] } }
+t['zt']    = {'zt', {'200'}}
+t['zz']    = {'zz', {'200'}}
+t['zb']    = {'zb', {'200'}}
 require('neoscroll.config').set_mappings(t)
+
+-- Zen mode
+map("n", "<leader>zm", "<CMD>ZenMode<CR>")
 
 -- toggle whitespace
 map("n", "<leader>ws", "<cmd>set list!<CR>")
@@ -93,9 +99,8 @@ end
 map({ 'n' }, '<leader>qf', toggle_quickfix)
 
 -- NeoTree
-map("n", "<leader>nt", "<CMD>Neotree reveal left<CR>")
-map("n", "<leader>nf", "<CMD>Neotree reveal float<CR>")
-map("n", "<leader>nc", "<CMD>Neotree close<CR>")
+map("n", "<leader>nt", "<CMD>Neotree show toggle reveal left<CR>")
+map("n", "<leader>nf", "<CMD>Neotree toggle reveal float<CR>")
 
 -- Aerial
 map("n", "<leader>at", "<CMD>AerialToggle<CR>")
@@ -133,6 +138,7 @@ map('n', '<leader>fs', "<CMD>Telescope grep_string<CR>")
 map("n", "<leader>fp", "<CMD>Telescope projects<CR>")
 map('n', '<leader>br', "<CMD>Telescope git_branches<CR>")
 map('n', '<leader>gs', "<CMD>Telescope git_status<CR>")
+map('n', '<leader>/', "<CMD>Telescope current_buffer_fuzzy_find<CR>")
 
 -- Move lines and blocks
 map("x", "<A-j>", ":m '>+1<CR>gv=gv")
@@ -159,6 +165,11 @@ map('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
 map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>') 
 map('n', '<M-o>', '<cmd>ClangdSwitchSourceHeader<CR>')
+map('n', '<space>e', vim.diagnostic.open_float)
+map('n', '[d', vim.diagnostic.goto_prev)
+map('n', ']d', vim.diagnostic.goto_next)
+map('n', '<space>q', vim.diagnostic.setloclist)
+
 
 -- Session
 map("n", "<leader>ss", "<CMD>SessionManager save_current_session<CR>")
@@ -166,10 +177,7 @@ map("n", "<leader>o", "<CMD>SessionManager load_session<CR>")
 
 -- ToggleTerm
 local git_root = "cd $(git rev-parse --show-toplevel 2>/dev/null) && clear"
--- opens terminal as a new tab at the git root
-map("n", "<C-\\>t", "<CMD>ToggleTerm direction=tab<CR>", { desc = "new tabbed terminal" })
--- as a regular window
-map("n", "<C-\\>", "<CMD>TermExec go_back=0 cmd='" .. git_root .. "'<CR>", { desc = "new terminal" })
+map("n", "<C-\\>f", "<CMD>ToggleTerm direction=float<CR>", { desc = "new tabbed terminal" })
 function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
     map('t', '<esc>', [[<C-\><C-n>]], opts)

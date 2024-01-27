@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 for _, source in ipairs({
-  "core.main-options",
+  "core.options",
   "core.plugins",
   "core.keybindings",
   "core.utils.utils",

@@ -110,13 +110,6 @@ require("lazy").setup({
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     {
-        "Shatur/neovim-session-manager",
-        event = "VimEnter",
-        config = function()
-            require("plugin-configs.session")
-        end,
-    },
-    {
         "folke/noice.nvim",
         event = "VimEnter",
         config = function()
@@ -197,7 +190,7 @@ require("lazy").setup({
     },
     {
         "kylechui/nvim-surround",
-        cmd = "VimEnter",
+        event = "VimEnter",
         config = function()
             require("nvim-surround").setup()
         end,
@@ -214,32 +207,62 @@ require("lazy").setup({
         dependencies = {
             { "nvim-treesitter/nvim-treesitter-textobjects" },
             { "windwp/nvim-ts-autotag" },
-            { "HiPhish/rainbow-delimiters.nvim" },
             { "JoosepAlviste/nvim-ts-context-commentstring" },
         },
     },
     { 
         "catppuccin/nvim", 
-        event = "VimEnter",
+        lazy = false,
         name = "catppuccin", 
         priority = 1000,
         config = function()
-            require("plugin-configs.catppuccin")
+            -- require("themes.catppuccin")
         end,
+    },
+    {
+        'sainnhe/everforest',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            -- require("themes.everforest")
+        end
+    },
+    {
+        'AlexvZyl/nordic.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            -- require("themes.nordic")
+        end
+    },
+    {
+        'EdenEast/nightfox.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("themes.nightfox")
+        end
+    },
+    {
+        'airblade/vim-rooter',
+        event = "VimEnter",
+        config = function()
+            require('plugin-configs.rooter')
+        end
+    },
+    {
+        'stevearc/overseer.nvim',
+        opts = {},
+        event = "VimEnter",
+        config = function()
+            require('overseer').setup()
+        end
     },
     { 
         'Civitasv/cmake-tools.nvim',
         event = "VimEnter",
         config = function()
             require("plugin-configs.cmaketools")
-        end,
-    },
-    {
-        "kevinhwang91/nvim-ufo",
-        event = "VimEnter",
-        dependencies = "kevinhwang91/promise-async",
-        config = function()
-            require("ufo").setup()
         end,
     },
     { "nvim-lua/plenary.nvim" },
@@ -283,9 +306,32 @@ require("lazy").setup({
     },
     {
         "folke/twilight.nvim",
+        lazy = false,
         cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
         config = function()
             require("plugin-configs.twilight")
+        end,
+    },
+    {
+        "nvim-neorg/neorg",
+        lazy = false,
+        build = ":Neorg sync-parsers",
+        -- tag = "*",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("neorg").setup {
+                load = {
+                    ["core.defaults"] = {}, -- Loads default behaviour
+                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                    ["core.dirman"] = { -- Manages Neorg workspaces
+                        config = {
+                            workspaces = {
+                                notes = "~/notes",
+                            },
+                        },
+                    },
+                },
+            }
         end,
     },
     {
@@ -301,6 +347,13 @@ require("lazy").setup({
         config = function()
             require("plugin-configs.windline")
         end,
+    },
+    {
+        "folke/zen-mode.nvim",
+        cmd = "ZenMode",
+		config = function()
+			require("plugin-configs.zen")
+		end,
     },
 }, {
     defaults = { lazy = true },
