@@ -60,6 +60,8 @@ telescope.setup({
           no_ignore_parent = true,
           mappings = {
               n = {
+                  ['s'] = actions.select_vertical,
+                  ['x'] = actions.select_horizontal,
                   ['J'] = actions.preview_scrolling_down,
                   ['K'] = actions.preview_scrolling_up,
               }
@@ -69,6 +71,8 @@ telescope.setup({
           initial_mode = 'normal',
           mappings = {
               n = {
+                  ['s'] = actions.select_vertical,
+                  ['x'] = actions.select_horizontal,
                   ['J'] = actions.preview_scrolling_down,
                   ['K'] = actions.preview_scrolling_up
               }
@@ -77,18 +81,27 @@ telescope.setup({
       live_grep = {
           mappings = {
               n = {
+                  ['s'] = actions.select_vertical,
+                  ['x'] = actions.select_horizontal,
                   ['J'] = actions.preview_scrolling_down,
                   ['K'] = actions.preview_scrolling_up
               }
           }
       },
       buffers = {
-          initial_mode = 'normal'
+          initial_mode = 'normal',
+          mappings = {
+              n = {
+                  ['s'] = actions.select_vertical,
+                  ['x'] = actions.select_horizontal
+              }
+          }
       },
       git_bcommits = {
           mappings = {
               n = {
-                  ['<cr>'] = actions.select_vertical,
+                  ['s'] = actions.select_vertical,
+                  ['x'] = actions.select_horizontal,
                   ['J'] = actions.preview_scrolling_down,
                   ['K'] = actions.preview_scrolling_up
               }
@@ -98,7 +111,8 @@ telescope.setup({
       git_commits = {
           mappings = {
               n = {
-                  ['<cr>'] = actions.select_vertical,
+                  ['s'] = actions.select_vertical,
+                  ['x'] = actions.select_horizontal,
                   ['J'] = actions.preview_scrolling_down,
                   ['K'] = actions.preview_scrolling_up
               }

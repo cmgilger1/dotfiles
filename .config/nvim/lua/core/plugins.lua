@@ -244,13 +244,6 @@ require("lazy").setup({
         end
     },
     {
-        'airblade/vim-rooter',
-        event = "VimEnter",
-        config = function()
-            require('plugin-configs.rooter')
-        end
-    },
-    {
         'stevearc/overseer.nvim',
         opts = {},
         event = "VimEnter",
@@ -270,7 +263,7 @@ require("lazy").setup({
         "ahmedkhalf/project.nvim",
         event = "VimEnter",
         config = function()
-            require("project_nvim").setup()
+            require("plugin-configs.project")
         end,
     },
     {
