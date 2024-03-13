@@ -3,15 +3,6 @@ local map = require("core.utils.utils").map
 vim.g.mapleader = " " -- the leader key is the spacebar
 local M = {}
 
--- DAP
-_G.dap = require("dap")
-map("n", "<leader>dc", "<CMD>lua dap.continue()<CR>")
-map("n", "<leader>n", "<CMD>lua dap.step_over()<CR>")
-map("n", "<leader>si", "<CMD>lua dap.step_into()<CR>")
-map("n", "<leader>so", "<CMD>lua dap.step_out()<CR>")
-map("n", "<leader>tb", "<CMD>lua dap.toggle_breakpoint()<CR>")
-map("n", "<leader>dq", "<CMD>lua dap.disconnect({ terminateDebuggee = true })<CR>")
-
 -- Trouble
 map("n", "<leader>tr", "<CMD>TroubleToggle lsp_references<CR>")
 map("n", "<leader>td", "<CMD>TroubleToggle lsp_definitions<CR>")
@@ -22,23 +13,8 @@ map("n", "zR", "<CMD>lua require('ufo').openAllFolds()<CR>")
 map("n", "zM", "<CMD>lua require('ufo').closeAllFolds()<CR>")
 
 -- some generic mappings
-map('n', '>', ';')                      -- remap ; (leader) to >
-map('n', '<', ',')                      -- because this makes sense
 map('n', '<leader>hh', '<cmd>nohl<cr>') -- toggle nohl
 map('n', '<leader>j', 'J')              -- first map <leader>j to join()
-
--- Neoscroll
-local t = {}
--- Syntax: t[keys] = {function, {function arguments}}
-t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '200', [['sine']] } }
-t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '200', [['sine']] } }
--- Use the "circular" easing function
-t['K'] = { 'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', '200', [['circular']] } }
-t['J'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '200', [['circular']] } }
-t['zt']    = {'zt', {'200'}}
-t['zz']    = {'zz', {'200'}}
-t['zb']    = {'zb', {'200'}}
-require('neoscroll.config').set_mappings(t)
 
 -- Zen mode
 map("n", "<leader>zm", "<CMD>ZenMode<CR>")
@@ -77,12 +53,12 @@ map('i', '<M-h>', '<left>')
 map('i', '<M-l>', '<right>')
 map('i', '<M-k>', '<up>')
 map('i', '<M-j>', '<down>')
-
+--
 -- STOP USING ARROW KEYS
-map({ 'n', 'i', 'v' }, '<up>', '<nop>')
-map({ 'n', 'i', 'v' }, '<down>', '<nop>')
-map({ 'n', 'i', 'v' }, '<left>', '<nop>')
-map({ 'n', 'i', 'v' }, '<right>', '<nop>')
+-- map({ 'n', 'i', 'v' }, '<up>', '<nop>')
+-- map({ 'n', 'i', 'v' }, '<down>', '<nop>')
+-- map({ 'n', 'i', 'v' }, '<left>', '<nop>')
+-- map({ 'n', 'i', 'v' }, '<right>', '<nop>')
 
 -- toggle quick fix
 function toggle_quickfix()
@@ -114,6 +90,7 @@ map("n", "m", "<CMD>noh<CR>")
 map("i", "<C-d>", "<left><c-o>/[\"';)>}\\]]<cr><c-o><CMD>noh<cr><right>")
 map("i", "<C-b>", "<C-o>0")
 map("i", "<C-a>", "<C-o>A")
+map('i', '<M-l>', 'copilot#Accept("")')
 
 -- Command mode
 map("c", "<C-p>", "<Up>")

@@ -18,12 +18,12 @@ SETUVAR fish_color_escape:eba0ac
 SETUVAR fish_color_gray:6c7086
 SETUVAR fish_color_history_current:\x2d\x2dbold
 SETUVAR fish_color_host:89b4fa
-SETUVAR fish_color_host_remote:a6e3a1
-SETUVAR fish_color_keyword:f38ba8
+SETUVAR fish_color_host_remote:\x1d
+SETUVAR fish_color_keyword:\x1d
 SETUVAR fish_color_match:\x2d\x2dbackground\x3dbrblue
 SETUVAR fish_color_normal:cdd6f4
 SETUVAR fish_color_operator:f5c2e7
-SETUVAR fish_color_option:a6e3a1
+SETUVAR fish_color_option:\x1d
 SETUVAR fish_color_param:f2cdcd
 SETUVAR fish_color_quote:a6e3a1
 SETUVAR fish_color_redirection:f5c2e7
@@ -46,3 +46,4 @@ SETUVAR fish_pager_color_selected_background:\x1d
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
+SETUVAR fish_user_paths:/home/caroline/opt/gcc\x2d13\x2e2\x2e0/bin\x1e/home/caroline/tools/nodejs/bin\x1e/home/caroline/\x2ecargo/bin\x1e/home/caroline/bin/cmake\x2d3\x2e28\x2e1\x2dlinux\x2dx86_64/bin\x1e/home/linuxbrew/\x2elinuxbrew/opt/fzf/bin

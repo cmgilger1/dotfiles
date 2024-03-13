@@ -11,18 +11,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-for _, source in ipairs({
-  "core.options",
-  "core.plugins",
-  "core.keybindings",
-  "core.utils.utils",
-  "core.autocommands",
-}) do
-  local status_ok, fault = pcall(require, source)
-  if not status_ok then
-    vim.api.nvim_err_writeln("Failed to load " .. source .. "\n\n" .. fault)
-  end
-end
+require("core.utils.utils")
+require("core.options")
+require("core.keybindings")
+require("core.autocommands")
+require("core.plugins")
 
 vim.api.nvim_create_user_command("UpdateMyConfig", function()
   require("core.utils.utils").updateAll()

@@ -10,7 +10,7 @@ vim_opts({
         cursorline = true,
         cursorlineopt = "number",
         updatetime = 100,
-        textwidth = 100,
+        textwidth = 0,
         breakindent = true,
         breakindentopt = "shift:2,min:40,sbr",
         smartcase = true,
