@@ -20,8 +20,6 @@ export LS_COLORS="$(vivid generate snazzy)"
 bind -e \el 
 bind \el forward-char
 
-set -x DISPLAY $(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
-set -x TI_AM62X_SDK "$HOME/ti"
 set -x NVIM_DIR "$HOME/.nvm"
 
 fish_add_path -p "$HOME/bin/cmake-3.28.1-linux-x86_64/bin/"
@@ -29,7 +27,5 @@ fish_add_path -p "$HOME/.cargo/bin/"
 fish_add_path -p "$HOME/tools/nodejs/bin/"
 
 set -x MASON "$HOME/.local/share/mason"
-
-ntpdate -s time.windows.com
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

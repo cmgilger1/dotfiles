@@ -15,8 +15,7 @@ config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
 config.audible_bell = "Disabled"
 config.hide_tab_bar_if_only_one_tab = false
 config.show_new_tab_button_in_tab_bar = false
-config.font_size = 10.5
-config.default_domain = 'WSL:Ubuntu-22.04'
+config.font_size = 12.5
 
 config.mouse_bindings = {
     {
@@ -34,19 +33,6 @@ config.mouse_bindings = {
     },
 }
 
-config.serial_ports = {
-    {
-        name = 'COM5',
-        port = 'COM5',
-        baud = 115200
-    },
-    {
-        name = 'COM17',
-        port = 'COM17',
-        baud = 115200
-    }
-}
-
 function basename(s)
     return string.gsub(s, '(.*[/\\])(.*)', '%2')
 end
@@ -58,21 +44,6 @@ local move_around = function(window, pane, direction_wez, direction_nvim)
     else
         window:perform_action(wezterm.action.SendKey{ key = direction_nvim , mods = 'CTRL' }, pane)
     end
-end
-
-local do_open_serial = function(window, pane)
-    wezterm.action.PromptInputLine {
-        description = 'Enter new name for tab',
-        action = wezterm.action_callback(function(window, pane, line)
-            if line then
-                wezterm.action.SpawnCommandInNewWindow {
-                    domain = {
-                        DomainName = line
-                    }
-                }
-            end
-        end),
-    }
 end
 
 wezterm.on("move-left", function(window, pane)
@@ -91,11 +62,6 @@ wezterm.on("move-down", function(window, pane)
     move_around(window, pane, "Down", "j")
 end)
 
-wezterm.on("open-serial", function(window,pane)
-    print('here')
-    do_open_serial(window,pane)
-end)
-
 
 config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.keys = {
@@ -104,7 +70,7 @@ config.keys = {
         mods = 'LEADER|SHIFT',
         action = wezterm.action.SplitPane {
             direction = 'Right',
-            command = { cwd = '/home/caroline', domain = { DomainName = 'WSL:Ubuntu-22.04' }}
+            command = { cwd = '/home/caroline' }
         }
     },
     {
@@ -112,7 +78,7 @@ config.keys = {
         mods = 'LEADER|SHIFT',
         action = wezterm.action.SplitPane {
             direction = 'Down',
-            command = { cwd = '/home/caroline', domain = { DomainName = 'WSL:Ubuntu-22.04' }}
+            command = { cwd = '/home/caroline' }
         }
     },
     {
@@ -120,8 +86,7 @@ config.keys = {
         mods = 'LEADER',
         action = wezterm.action.SplitPane {
             direction = 'Down',
-            size = { Percent = 20 },
-            command = { domain = { DomainName = 'WSL:Ubuntu-22.04' }}
+            size = { Percent = 20 }
         }
     },
     {
@@ -133,8 +98,7 @@ config.keys = {
         key = 'c',
         mods = 'LEADER',
         action = wezterm.action.SpawnCommandInNewTab {
-            cwd = '/home/caroline',
-            domain = { DomainName = 'WSL:Ubuntu-22.04' }
+            cwd = '/home/caroline'
         }
     },
     {
@@ -207,10 +171,6 @@ config.keys = {
         key = 'C',
         mods = 'LEADER|SHIFT',
         action = wezterm.action.SpawnCommandInNewWindow
-    },
-    {
-        key = 'F5',
-        action = wezterm.action{EmitEvent="open-serial"}
     },
 }
 for i = 1, 9 do
