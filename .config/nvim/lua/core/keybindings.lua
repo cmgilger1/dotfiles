@@ -1,16 +1,10 @@
 local map = require("core.utils.utils").map
 
 vim.g.mapleader = " " -- the leader key is the spacebar
-local M = {}
-
 -- Trouble
 map("n", "<leader>tr", "<CMD>TroubleToggle lsp_references<CR>")
 map("n", "<leader>td", "<CMD>TroubleToggle lsp_definitions<CR>")
 map("n", "<leader>cd", "<CMD>TroubleToggle<CR>")
-
--- UFO
-map("n", "zR", "<CMD>lua require('ufo').openAllFolds()<CR>")
-map("n", "zM", "<CMD>lua require('ufo').closeAllFolds()<CR>")
 
 -- some generic mappings
 map('n', '<leader>hh', '<cmd>nohl<cr>') -- toggle nohl
@@ -53,15 +47,9 @@ map('i', '<M-h>', '<left>')
 map('i', '<M-l>', '<right>')
 map('i', '<M-k>', '<up>')
 map('i', '<M-j>', '<down>')
---
--- STOP USING ARROW KEYS
--- map({ 'n', 'i', 'v' }, '<up>', '<nop>')
--- map({ 'n', 'i', 'v' }, '<down>', '<nop>')
--- map({ 'n', 'i', 'v' }, '<left>', '<nop>')
--- map({ 'n', 'i', 'v' }, '<right>', '<nop>')
 
 -- toggle quick fix
-function toggle_quickfix()
+local function toggle_quickfix()
     local windows = vim.fn.getwininfo()
     for _, win in pairs(windows) do
         if win["quickfix"] == 1 then
@@ -79,7 +67,7 @@ map("n", "<leader>nt", "<CMD>Neotree show toggle reveal left<CR>")
 map("n", "<leader>nf", "<CMD>Neotree toggle reveal float<CR>")
 
 -- Aerial
-map("n", "<leader>at", "<CMD>AerialToggle<CR>")
+map("n", "<leader>at", "<CMD>AerialToggle right<CR>")
 
 -- Searching and Highlighting
 map("n", "m", "<CMD>noh<CR>")
@@ -90,7 +78,6 @@ map("n", "m", "<CMD>noh<CR>")
 map("i", "<C-d>", "<left><c-o>/[\"';)>}\\]]<cr><c-o><CMD>noh<cr><right>")
 map("i", "<C-b>", "<C-o>0")
 map("i", "<C-a>", "<C-o>A")
-map('i', '<M-l>', 'copilot#Accept("")')
 
 -- Command mode
 map("c", "<C-p>", "<Up>")
@@ -147,11 +134,6 @@ map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
 map('n', '<space>q', vim.diagnostic.setloclist)
 
-
--- Session
-map("n", "<leader>ss", "<CMD>SessionManager save_current_session<CR>")
-map("n", "<leader>o", "<CMD>SessionManager load_session<CR>")
-
 -- ToggleTerm
 local git_root = "cd $(git rev-parse --show-toplevel 2>/dev/null) && clear"
 map("n", "<C-\\>f", "<CMD>ToggleTerm direction=float<CR>", { desc = "new tabbed terminal" })
@@ -172,65 +154,12 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 -- Hop
 map("n", "<leader>m", "<CMD>HopWord<CR>")
 
+-- CodeSnap
+map({'n', 'v'}, '<leader>sn', '<cmd>CodeSnap<cr>')
+
 -- Fugitive 
 map("n", "<leader>gg", "<CMD>G<CR>")
 map("n", "<leader>bl", "<CMD>Git blame<CR>")
 
--- Gitsigns
-
--- making this a function here because all it does is create keybinds for gitsigns but
--- it needs to be attached to an on_attach function.
-M.gitsigns = function()
-    local gs = package.loaded.gitsigns
-    -- travel between hunks, backwards and forwards
-    map("n", "]c", function()
-        if vim.wo.diff then
-            return "]c"
-        end
-        vim.schedule(function()
-            gs.next_hunk()
-        end)
-        return "<Ignore>"
-    end, { expr = true, desc = "go to previous git hunk" })
-    map("n", "[c", function()
-        if vim.wo.diff then
-            return "[c"
-        end
-        vim.schedule(function()
-            gs.prev_hunk()
-        end)
-        return "<Ignore>"
-    end, { expr = true, desc = "go to next git hunk" })
-
-    map("n", "<leader>hs", gs.stage_hunk, { desc = "stage hunk" })
-    map("n", "<leader>hr", gs.reset_hunk, { desc = "reset hunk" })
-    map("n", "<leader>hS", gs.stage_buffer, { desc = "stage buffer" })
-    map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "undo stage hunk" })
-    map("n", "<leader>hR", gs.reset_buffer, { desc = "reset buffer" })
-    map("n", "<leader>hp", gs.preview_hunk, { desc = "preview hunk" })
-    map("n", "<leader>hb", function()
-        gs.blame_line({ full = true })
-    end, { desc = "complete blame line history" })
-    map("n", "<leader>lb", gs.toggle_current_line_blame, { desc = "toggle blame line" })
-    -- diff at current working directory
-    map("n", "<leader>hd", gs.diffthis, { desc = "diff at cwd" })
-    -- diff at root of git repository
-    map("n", "<leader>hD", function()
-        gs.diffthis("~")
-    end, { desc = "diff at root of git repo" })
-    map("n", "<leader>td", gs.toggle_deleted, { desc = "toggle deleted line" })
-end
-
 -- autosave
 map("n", "<leader>as", "<CMD>ASToggle<CR>", { desc = "toggle autosave" })
-
-
-
-
--- cmp (these are defined in cmp's configuration file)
--- ["<C-j>"] = cmp.mapping.scroll_docs(-4),
--- ["<C-k"] = cmp.mapping.scroll_docs(4),
--- ["<C-c>"] = cmp.mapping.abort(),
--- ["<C-f>"] = cmp_action.luasnip_jump_forward(),
--- ["<C-b>"] = cmp_action.luasnip_jump_backward(),
-return M

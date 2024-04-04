@@ -40,6 +40,7 @@ return {
                         "--color=never",
                         "--no-ignore",
                         "--glob=!build",
+                        "--glob=!tags",
                         "--no-heading",
                         "--with-filename",
                         "--line-number",

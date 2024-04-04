@@ -93,6 +93,7 @@ return {
                 cmd = { "DapInstall", "DapUninstall" },
                 config = true
             },
+            { "nvim-neotest/nvim-nio" },
             {
                 "rcarriga/nvim-dap-ui",
                 config = function()

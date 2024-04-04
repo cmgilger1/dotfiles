@@ -25,7 +25,11 @@ set -x NVIM_DIR "$HOME/.nvm"
 fish_add_path -p "$HOME/bin/cmake-3.28.1-linux-x86_64/bin/"
 fish_add_path -p "$HOME/.cargo/bin/"
 fish_add_path -p "$HOME/tools/nodejs/bin/"
+fish_add_path -p "$HOME/bin"
+fish_add_path -p "$HOME/.local/bin"
 
 set -x MASON "$HOME/.local/share/mason"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+bass . ~/qnx/qnx710/qnxsdp-env.sh 2>&1 > /dev/null
