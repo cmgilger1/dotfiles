@@ -3,14 +3,14 @@ return {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
         dependencies = {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-            dependencies = {
-                'junegunn/fzf.vim'
-            },
-            config = function()
-                require('telescope').load_extension('fzf')
-            end
+            -- "nvim-telescope/telescope-fzf-native.nvim",
+            -- build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+            -- dependencies = {
+            --     'junegunn/fzf.vim'
+            -- },
+            -- config = function()
+            --     require('telescope').load_extension('fzf')
+            -- end
         },
         config = function()
             local trouble = require("trouble.providers.telescope")
@@ -39,6 +39,7 @@ return {
                         "rg",
                         "--color=never",
                         "--no-ignore",
+                        "--hidden",
                         "--glob=!build",
                         "--glob=!tags",
                         "--no-heading",

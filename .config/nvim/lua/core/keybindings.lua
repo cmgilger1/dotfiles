@@ -151,6 +151,11 @@ end
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
+map('n', '<C-h>', '<C-w><h>', opts)
+map('n', '<C-j>', '<C-w><j>', opts)
+map('n', '<C-k>', '<C-w><k>', opts)
+map('n', '<C-l>', '<C-w><l>', opts)
+
 -- Hop
 map("n", "<leader>m", "<CMD>HopWord<CR>")
 

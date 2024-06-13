@@ -2,8 +2,9 @@ local vim_opts = require("core.utils.utils").vim_opts
 vim.opt.shortmess:append("sIW")
 vim_opts({
     opt = {
+        splitbelow = true,
+        splitright = true,
         showmode = false,
-        signcolumn = "yes",
         numberwidth = 4,
         colorcolumn = "0",
         guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20",

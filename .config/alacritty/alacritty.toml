@@ -1,5 +1,5 @@
 import = [
-    "%APPDATA%\\alacritty\\themes\\themes\\nightfox.toml"
+    "%APPDATA%\\alacritty\\themes\\themes\\everforest_light.toml"
 ]
 [shell]
 args = [ "--cd ~" ]

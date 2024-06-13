@@ -1,8 +1,8 @@
 return {
-    { 
-        "catppuccin/nvim", 
+    {
+        "catppuccin/nvim",
         lazy = false,
-        name = "catppuccin", 
+        name = "catppuccin",
         priority = 1000,
         config = function()
             -- require("themes.catppuccin")
@@ -13,7 +13,7 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            -- require("themes.everforest")
+            require("themes.everforest")
         end
     },
     {
@@ -29,7 +29,7 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            require("themes.nightfox")
+            -- require("themes.nightfox")
         end
     },
 }

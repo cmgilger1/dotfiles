@@ -9,6 +9,11 @@ cmd({ "FileType" }, {
   command = "setlocal nofoldenable",
 })
 
+cmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {"*.norg"},
+  command = "set conceallevel=3"
+})
+
 -- Fixes some bugs with how treesitter manages folds
 cmd({ "BufEnter", "BufAdd", "BufNew", "BufNewFile", "BufWinEnter" }, {
   desc = "fix tree sitter folds issue",
@@ -41,19 +46,6 @@ cmd({ "User" }, {
   group = augroup("session save", { clear = true }),
   pattern = "SessionSavePost",
   command = "lua vim.notify('Session Saved', 'info')",
-})
-
--- enables coloring hexcodes and color names in css, jsx, etc.
-cmd({ "Filetype" }, {
-  desc = "activate colorizer",
-  pattern = "css,scss,html,xml,svg,js,jsx,ts,tsx,php,vue",
-  group = augroup("colorizer", { clear = true }),
-  callback = function()
-    require("colorizer").attach_to_buffer(0, {
-      mode = "background",
-      css = true,
-    })
-  end,
 })
 
 -- disables autocomplete in some filetypes

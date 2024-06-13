@@ -11,11 +11,12 @@ set -x FZF_DEFAULT_OPTS '--height 10% --reverse --no-bold'
 set fish_color_valid_path
 
 function fish_prompt -d "Write out the prompt"
-    # echo (set_color green) '' (set_color magenta) '' (set_color normal)
-    echo (set_color magenta) '' (set_color normal)
+    echo (set_color blue)'caroline@fish'(set_color normal) ' '
 end
 
-export LS_COLORS="$(vivid generate snazzy)"
+set -x AARCH64_SDK "/home/caroline/ti/ti-am62x-sdk/"
+
+export LS_COLORS="$(vivid generate iceberg-dark)"
 
 bind -e \el 
 bind \el forward-char

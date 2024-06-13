@@ -8,9 +8,19 @@ return {
                 mappings = {
                     ["C"] = "close_all_subnodes",
                     ["Z"] = "expand_all_nodes",
+                    ["m"] = {
+                        "move",
+                        config = {
+                            show_path = "relative" -- "none", "relative", "absolute"
+                        }
+                    }
                 },
             },
             filesystem = {
+                filtered_items = {
+                    visible = true,
+                    hide_dotfiles = false
+                },
                 follow_current_file = {
                     enabled = true,
                 },

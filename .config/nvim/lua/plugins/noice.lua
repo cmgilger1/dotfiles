@@ -72,7 +72,32 @@ return {
     {
         "rcarriga/nvim-notify",
         config = function()
-            vim.notify = require("notify")
+            local match_groups = { "%(mini%.deps%) %(%d+/%d+%) Downloaded update for" }
+
+            local cache = {}
+            vim.notify = function(msg, log_level)
+                local opts = {}
+
+                for _, val in ipairs(match_groups) do
+                    if msg:match(val) then
+                        opts = {
+                            replace = cache[val],
+                            on_open = function(_, record)
+                                cache[val] = record.id
+                            end,
+                            on_close = function()
+                                cache[val] = nil
+                            end,
+                        }
+
+                        cache[val] = require("notify").notify(msg, log_level, opts).id
+                    else
+                        require("notify").notify(msg, log_level, opts)
+
+                    end
+                end
+            end
+            -- vim.notify = require("notify")
         end 
     }
 }
