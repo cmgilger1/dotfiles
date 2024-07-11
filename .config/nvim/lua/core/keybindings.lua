@@ -104,10 +104,6 @@ map('n', '<leader>br', "<CMD>Telescope git_branches<CR>")
 map('n', '<leader>gs', "<CMD>Telescope git_status<CR>")
 map('n', '<leader>/', "<CMD>Telescope current_buffer_fuzzy_find<CR>")
 
--- Move lines and blocks
-map("x", "<A-j>", ":m '>+1<CR>gv=gv")
-map("x", "<A-k>", ":m '<-2<CR>gv=gv")
-
 -- Notify
 map("n", "<ESC>", "<CMD>lua require('notify').dismiss()<CR>")
 map("i", "<ESC>", "<CMD>lua require('notify').dismiss()<CR><ESC>")
@@ -168,3 +164,9 @@ map("n", "<leader>bl", "<CMD>Git blame<CR>")
 
 -- autosave
 map("n", "<leader>as", "<CMD>ASToggle<CR>", { desc = "toggle autosave" })
+
+-- window resize
+map('n', 'wj', '<cmd>horizontal resize -2<cr>')
+map('n', 'wk', '<cmd>horizontal resize +2<cr>')
+map('n', 'wh', '<cmd>vertical resize -2<cr>')
+map('n', 'wl', '<cmd>vertical resize +2<cr>')

@@ -9,6 +9,12 @@ cmd({ "FileType" }, {
   command = "setlocal nofoldenable",
 })
 
+cmd( {"BufEnter"}, {
+    desc = "Resize to default windows",
+    group = augroup("Random", {clear = true}),
+    command = "tabdo wincmd ="
+})
+
 cmd({"BufEnter", "BufWinEnter"}, {
   pattern = {"*.norg"},
   command = "set conceallevel=3"
@@ -70,6 +76,12 @@ cmd("BufEnter", {
     end
   end,
 })
+
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--   callback = function(args)
+--     vim.keymap.del('n', 'K', { buffer = args.buf })
+--   end,
+-- })
 
 -- https://vi.stackexchange.com/questions/1983/how-can-i-get-vim-to-stop-putting-comments-in-front-of-new-lines/1985#1985 
 cmd({"FileType"}, {

@@ -4,79 +4,80 @@ return {
         cmd = { "TroubleToggle", "Trouble" },
     },
     {
-        "VonHeikemen/lsp-zero.nvim",
-        event = "VimEnter",
-        branch = "v2.x",
+        "neovim/nvim-lspconfig",
+        opts = {
+            servers = {
+                clangd = {
+                    root_dir = function(fname)
+                        return require("lspconfig.util").root_pattern("compile_commands.json")
+                    end,
+                    cmd = {
+                        "clangd",
+                        "--background-index",
+                        "--query-driver=/usr/bin/gcc",
+                        "--clang-tidy",
+                        "--header-insertion=iwyu",
+                        "--completion-style=detailed",
+                        "--function-arg-placeholders",
+                        "--fallback-style=llvm",
+                    },
+                    init_options = {
+                        usePlaceholders = true,
+                        completeUnimported = true,
+                        clangdFileStatus = true,
+                    },
+                    on_attach = function(_, buf)
+                        require("clangd_extensions.inlay_hints").setup_autocmd()
+                        require("clangd_extensions.inlay_hints").set_inlay_hints()
+                    end,
+                },
+            },
+        },
         config = function()
-            local lsp = require("lsp-zero")
-            local lspconfig = require('lspconfig')
-            lsp.preset("minimal")
-
-            lsp.set_sign_icons({
-                error = "✘",
-                warn = "▲",
-                hint = "⚑",
-                info = "»",
-            })
-
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities.textDocument.foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true,
-            }
-
-            lspconfig.lua_ls.setup ({
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = { 'vim' }
-                        }
+            require('lspconfig').clangd.setup {}
+            require('lspconfig').lua_ls.setup {}
+            require('lspconfig').pyright.setup {}
+            require('lspconfig').cmake.setup {}
+            require('sonarlint').setup({
+                server = {
+                    cmd = {
+                        'sonarlint-language-server',
+                        -- Ensure that sonarlint-language-server uses stdio channel
+                        '-stdio',
+                        '-analyzers',
+                        -- paths to the analyzers you need, using those for python and java in this example
+                        vim.fn.expand("/home/caroline/.local/nvim/mason/share/sonarlint-analyzers/sonarpython.jar"),
+                        vim.fn.expand("/home/caroline/.local/nvim/mason/share/sonarlint-analyzers/sonarcfamily.jar"),
+                        vim.fn.expand("/home/caroline/.local/nvim/mason/share/sonarlint-analyzers/sonarjava.jar"),
                     }
+                },
+                filetypes = {
+                    -- Tested and working
+                    'python',
+                    'c++',
+                    'c'
                 }
             })
 
-            lspconfig.clangd.setup{
-                capabilities = capabilities,
-                cmd = { 'clangd',
-                '--background-index',
-                '-j=16',
-                '--completion-style=detailed',
-                '--header-insertion=iwyu',
-                '--clang-tidy',
-                '--enable-config',
-                '--query-driver=/home/caroline/qnx710/host/linux/x86_64/usr/bin/*g++,/home/caroline/qnx710/host/linux/x86_64/usr/bin/*gcc'},
-                init_options = {
-                    usePlaceholders = true,
-                    completeUnimported = true,
-                    clangdFileStatus = true,
-                    semanticHighlighting = true
-                },
-                on_attach = on_attach,
-                flags = { debounce_text_changes = 150 },
-                on_new_config = function(new_config, new_cwd)
-                    local status, cmake = pcall(require, "cmake-tools")
-                    if status then
-                        cmake.clangd_on_new_config(new_config)
-                    end
-                end,
-            }
-
-            vim.lsp.handlers["textDocument/publishDiagnostics"] =
-            vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics,
-            {
+            vim.diagnostic.config({
                 virtual_text = false,
                 signs = true,
-                underline = false
-            }
-            )
-
-            lsp.setup()
+                underline = false,
+                update_in_insert = false,
+                severity_sort = false,
+            })
+            local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+            for type, icon in pairs(signs) do
+                local hl = "DiagnosticSign" .. type
+                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+            end
         end,
         dependencies = {
-            { "neovim/nvim-lspconfig" },
-            { "williamboman/mason.nvim"},
+            { "williamboman/mason.nvim" },
             { "williamboman/mason-lspconfig.nvim" },
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "p00f/clangd_extensions.nvim" },
+            { "https://gitlab.com/schrieveslaach/sonarlint.nvim" },
         }
     },
     {
@@ -84,11 +85,21 @@ return {
         event = "InsertEnter",
         config = function()
             local cmp = require("cmp")
-            local cmp_action = require("lsp-zero").cmp_action()
             local luasnip = require("luasnip")
             require("luasnip.loaders.from_vscode").lazy_load()
-            local has_words_before = require("core.utils.utils").has_words_before
             cmp.setup({
+                sorting = {
+                    comparators = {
+                        cmp.config.compare.offset,
+                        cmp.config.compare.exact,
+                        cmp.config.compare.recently_used,
+                        require("clangd_extensions.cmp_scores"),
+                        cmp.config.compare.kind,
+                        cmp.config.compare.sort_text,
+                        cmp.config.compare.length,
+                        cmp.config.compare.order,
+                    },
+                },
                 enabled = function()
                     -- disables in comments
                     local context = require("cmp.config.context")
@@ -125,22 +136,37 @@ return {
                     max_view_entries = 7
                 },
                 mapping = {
-                    ['<Tab>'] = cmp_action.tab_complete(),
-                    ['<S-Tab>'] = cmp_action.select_prev_or_fallback(),
-                    ['<CR>'] = cmp.mapping.confirm({select = false}),
+                    ['<Tab>'] = cmp.mapping(function(fallback)
+                        local col = vim.fn.col('.') - 1
+                        if cmp.visible() then
+                            cmp.select_next_item({ select = false})
+                        elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+                            fallback()
+                        else
+                            cmp.complete()
+                        end
+                    end),
+                    ['<S-Tab>'] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item({ select = false })
+                        else
+                            fallback()
+                        end
+                    end),
+                    ['<CR>'] = cmp.mapping.confirm({ select = false }),
                     ['<C-e>'] = cmp.mapping.abort(),
-                    ['<M-k>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
-                    ['<M-j>'] = cmp.mapping.select_next_item({behavior = 'select'}),
+                    ['<M-k>'] = cmp.mapping.select_prev_item({ behavior = 'select' }),
+                    ['<M-j>'] = cmp.mapping.select_next_item({ behavior = 'select' }),
                     ['<C-p>'] = cmp.mapping(function()
                         if cmp.visible() then
-                            cmp.select_prev_item({behavior = 'insert'})
+                            cmp.select_prev_item({ behavior = 'insert' })
                         else
                             cmp.complete()
                         end
                     end),
                     ['<C-n>'] = cmp.mapping(function()
                         if cmp.visible() then
-                            cmp.select_next_item({behavior = 'insert'})
+                            cmp.select_next_item({ behavior = 'insert' })
                         else
                             cmp.complete()
                         end
@@ -151,7 +177,7 @@ return {
                     { name = "nvim_lsp" },
                     { name = "nvim_lua" },
                     { name = "luasnip" },
-                    { name = "path", option = { trailing_slash = true } },
+                    { name = "path",    option = { trailing_slash = true } },
                 },
             })
         end,
@@ -166,5 +192,34 @@ return {
             { "rafamadriz/friendly-snippets" },
         },
     },
+    {
+        "p00f/clangd_extensions.nvim",
+        lazy = true,
+        config = function() end,
+        opts = {
+            inlay_hints = {
+                inline = false,
+            },
+            ast = {
+                --These require codicons (https://github.com/microsoft/vscode-codicons)
+                role_icons = {
+                    type = "",
+                    declaration = "",
+                    expression = "",
+                    specifier = "",
+                    statement = "",
+                    ["template argument"] = "",
+                },
+                kind_icons = {
+                    Compound = "",
+                    Recovery = "",
+                    TranslationUnit = "",
+                    PackExpansion = "",
+                    TemplateTypeParm = "",
+                    TemplateTemplateParm = "",
+                    TemplateParamObject = "",
+                },
+            },
+        },
+    }
 }
-

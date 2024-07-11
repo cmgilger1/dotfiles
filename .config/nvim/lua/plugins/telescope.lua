@@ -3,14 +3,7 @@ return {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
         dependencies = {
-            -- "nvim-telescope/telescope-fzf-native.nvim",
-            -- build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-            -- dependencies = {
-            --     'junegunn/fzf.vim'
-            -- },
-            -- config = function()
-            --     require('telescope').load_extension('fzf')
-            -- end
+            { "folke/trouble.nvim"}
         },
         config = function()
             local trouble = require("trouble.providers.telescope")
@@ -49,8 +42,9 @@ return {
                         "--smart-case",
                         "--trim"
                     },
+                    layout_strategy = 'vertical',
                     layout_config = {
-                        prompt_position = 'top'
+                        prompt_position = 'top',
                     },
                     scroll_strategy = 'limit'
                 },
@@ -151,6 +145,14 @@ return {
                             }
                         }
                     }
+                },
+                
+                extensions = {
+                    frecency = {
+                        auto_validate = false,
+                        matcher = "fuzzy",
+                        path_display = { "shorten" }
+                    }
                 }
             })
             telescope.load_extension("aerial")
@@ -158,5 +160,11 @@ return {
             telescope.load_extension("noice")
             telescope.load_extension("projects")
         end,
+    },
+    {
+        "nvim-telescope/telescope-frecency.nvim",
+        config = function()
+            require("telescope").load_extension("frecency")
+        end
     },
 }

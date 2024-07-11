@@ -11,11 +11,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("core.utils.utils")
 require("core.options")
 require("core.keybindings")
-require("core.autocommands")
 require("core.plugins")
+require("core.utils.utils")
+require("core.autocommands")
 
 vim.api.nvim_create_user_command("UpdateMyConfig", function()
   require("core.utils.utils").updateAll()
