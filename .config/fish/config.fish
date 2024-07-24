@@ -6,6 +6,7 @@ end
 
 set -x FZF_DEFAULT_COMMAND 'fd --type file --hidden --no-ignore --exclude .git --exclude build --exclude tags --exclude .cache'
 set -x FZF_DEFAULT_OPTS '--height 10% --reverse --no-bold'
+set -x FZF_CTRL_T_COMMAND ''
 
 # disable underlining paths by default
 set fish_color_valid_path
