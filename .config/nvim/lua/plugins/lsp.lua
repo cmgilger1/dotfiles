@@ -104,6 +104,8 @@ return {
                     -- disables in comments
                     local context = require("cmp.config.context")
                     if vim.api.nvim_get_mode().mode == "c" then
+                        buftype = vim.api.nvim_buf_get_option(0, "buftype")
+                        if buftype == "prompt" then return false end
                         return true
                     else
                         return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
@@ -129,7 +131,7 @@ return {
                         maxwidth = 50,
                         ellipsis_char = "...",
                         mode = "symbol_text",
-                        symbol_map = { Copilot = "" },
+                        symbol_map = { Codeium = "" },
                     }),
                 },
                 performance = {
@@ -173,7 +175,7 @@ return {
                     end),
                 },
                 sources = {
-                    { name = "copilot" },
+                    { name = "codeium" },
                     { name = "nvim_lsp" },
                     { name = "nvim_lua" },
                     { name = "luasnip" },

@@ -57,7 +57,8 @@ return {
                             },
                             filetypes = {
                                 'cpp',
-                                'c'
+                                'c',
+                                'python'
                             }
                         })
                     else

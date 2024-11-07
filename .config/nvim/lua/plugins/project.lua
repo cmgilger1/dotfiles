@@ -13,11 +13,11 @@ return {
                 -- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
                 -- order matters: if one is not detected, the other is used as fallback. You
                 -- can also delete or rearangne the detection methods.
-                detection_methods = { "pattern" , "lsp" },
+                detection_methods = { "pattern" },
 
                 -- All the patterns used to detect root dir, when **"pattern"** is in
                 -- detection_methods
-                patterns = { ".force_as_root", ".git", "qnxsdp-env.sh" },
+                patterns = { ".force_as_root" },
 
                 -- Table of lsp clients to ignore by name
                 -- eg: { "efm", ... }
@@ -25,7 +25,7 @@ return {
 
                 -- Don't calculate root dir on specific directories
                 -- Ex: { "~/.cargo/*", ... }
-                exclude_dirs = { "~/repos/yocto/layers/*" },
+                exclude_dirs = { },
 
                 -- Show hidden files in telescope
                 show_hidden = false,

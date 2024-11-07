@@ -19,18 +19,6 @@ map("n", "<leader>ws", "<cmd>set list!<CR>")
 -- toggle relative line numbers
 map("n", "<leader>ln", "<cmd>set relativenumber!<CR>")
 
--- clipboard copy/pasting
-vim.g.clipboard = {
-    name = 'win32yank-wsl',
-    copy = {
-        ['+'] = 'win32yank.exe -i --crlf',
-        ['*'] = 'win32yank.exe -i --crlf',
-    },
-    paste = {
-        ['+'] = 'win32yank.exe -o --lf',
-        ['*'] = 'win32yank.exe -o --lf',
-    }
-}
 map({ "n", "v" }, "<leader>p", [["+p]])
 map({ "n", "v" }, "<leader>P", [["+P]])
 map({ "n", "v" }, "<leader>y", [["+y]])
@@ -41,12 +29,6 @@ map({ 'n', 'i', 'v' }, '<C-h>', '<C-w>h')
 map({ 'n', 'i', 'v' }, '<C-l>', '<C-w>l')
 map({ 'n', 'i', 'v' }, '<C-k>', '<C-w>k')
 map({ 'n', 'i', 'v' }, '<C-j>', '<C-w>j')
-
--- hjkl movements in insert mode
-map('i', '<M-h>', '<left>')
-map('i', '<M-l>', '<right>')
-map('i', '<M-k>', '<up>')
-map('i', '<M-j>', '<down>')
 
 -- toggle quick fix
 local function toggle_quickfix()
@@ -83,13 +65,12 @@ map("i", "<C-a>", "<C-o>A")
 map("c", "<C-p>", "<Up>")
 map("c", "<C-n>", "<Down>")
 
--- CMake Tools
-map('n', '<leader>bb', '<cmd>CMakeBuild<cr>')
-map('n', '<leader>bg', '<cmd>CMakeGenerate<cr>')
-map('n', '<leader>bt', '<cmd>CMakeSelectBuildTarget<cr>')
-map('n', '<leader>bp', '<cmd>CMakeSelectBuildPreset<cr>')
-map('n', '<leader>cp', '<cmd>CMakeSelectConfigurePreset<cr>')
-map('n', '<leader>cc', '<cmd>CMakeClose<cr>')
+-- overseer
+map('n', '<leader>cc', '<cmd>OverseerRun dmake<cr>')
+map('n', '<leader>bb', '<cmd>OverseerRun dbake<cr>')
+map('n', '<leader>rb', '<cmd>OverseerRestartLast<cr>')
+map('n', '<leader>ot', '<cmd>OverseerToggle<cr>')
+map('n', '<leader>oc', '<cmd>OverseerRunCmd<cr>')
 
 -- Telescope
 map("n", "<leader><space>", "<CMD>Telescope find_files<CR>")
@@ -143,7 +124,7 @@ map('n', '<C-l>', '<C-w><l>', opts)
 map("n", "<leader>m", "<CMD>HopWord<CR>")
 
 -- CodeSnap
-map({'n', 'v'}, '<leader>sn', '<cmd>CodeSnap<cr>')
+map({'x'}, '<leader>sn', '<cmd>CodeSnap<cr>')
 
 -- Fugitive 
 map("n", "<leader>gg", "<CMD>G<CR>")

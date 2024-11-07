@@ -35,6 +35,7 @@ return {
                         "--hidden",
                         "--glob=!build",
                         "--glob=!tags",
+                        "--glob=!.repo",
                         "--no-heading",
                         "--with-filename",
                         "--line-number",
@@ -42,7 +43,7 @@ return {
                         "--smart-case",
                         "--trim"
                     },
-                    layout_strategy = 'vertical',
+                    layout_strategy = 'horizontal',
                     layout_config = {
                         prompt_position = 'top',
                     },
@@ -58,6 +59,7 @@ return {
                             "--column",
                             "--hidden",
                             "--glob=!.cache",
+                            "--glob=!.repo",
                             "--glob=!.git",
                             "--glob=!build",
                             "--files",

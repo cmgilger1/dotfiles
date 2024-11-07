@@ -1,9 +1,8 @@
 import = [
-    "%APPDATA%\\alacritty\\themes\\themes\\everforest_light.toml"
+    "~/repos/dotfiles/.config/alacritty/themes/themes/carbonfox.toml"
 ]
 [shell]
-args = [ "--cd ~" ]
-program = 'C:\Windows\System32\wsl.exe'
+program = 'fish'
 
 [window]
 decorations = "None"
@@ -11,7 +10,7 @@ startup_mode = "Maximized"
 
 [font]
 normal = { family = "Agave Nerd Font", style = "Regular" }
-size = 12.5
+size = 11
 
 [selection]
 save_to_clipboard = true

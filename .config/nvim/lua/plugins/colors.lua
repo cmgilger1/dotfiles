@@ -5,7 +5,7 @@ return {
         name = "catppuccin",
         priority = 1000,
         config = function()
-            -- require("themes.catppuccin")
+           -- require("themes.catppuccin")
         end,
     },
     {
@@ -13,7 +13,7 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            require("themes.everforest")
+            -- require("themes.everforest")
         end
     },
     {
@@ -29,7 +29,13 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            -- require("themes.nightfox")
+            require("themes.nightfox")
+        end
+    },
+    {
+        "rose-pine/neovim", 
+        config = function()
+            -- require("themes.rose-pine")
         end
     },
 }
