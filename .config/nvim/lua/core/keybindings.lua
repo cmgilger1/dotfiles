@@ -60,11 +60,11 @@ map("n", "m", "<CMD>noh<CR>")
 map("i", "<C-d>", "<left><c-o>/[\"';)>}\\]]<cr><c-o><CMD>noh<cr><right>")
 map("i", "<C-b>", "<C-o>0")
 map("i", "<C-a>", "<C-o>A")
-
--- Command mode
-map("c", "<C-p>", "<Up>")
-map("c", "<C-n>", "<Down>")
-
+--
+-- -- Command mode
+-- map("c", "<C-p>", "<Up>")
+-- map("c", "<C-n>", "<Down>")
+--
 -- overseer
 map('n', '<leader>cc', '<cmd>OverseerRun dmake<cr>')
 map('n', '<leader>bb', '<cmd>OverseerRun dbake<cr>')
@@ -73,17 +73,13 @@ map('n', '<leader>ot', '<cmd>OverseerToggle<cr>')
 map('n', '<leader>oc', '<cmd>OverseerRunCmd<cr>')
 
 -- Telescope
-map("n", "<leader><space>", "<CMD>Telescope find_files<CR>")
-map("n", "<leader>ff", "<CMD>Telescope git_files hidden=true<CR>", { desc = "Telescope Find Files" })
-map("n", "<leader>fg", "<CMD>Telescope live_grep<CR>")
-map("n", "<leader>fb", "<CMD>Telescope buffers<CR>")
-map("n", "<leader>fh", "<CMD>Telescope help_tags<CR>")
-map("n", "<leader>fa", "<CMD>Telescope aerial<CR>")
-map('n', '<leader>fs', "<CMD>Telescope grep_string<CR>")
-map("n", "<leader>fp", "<CMD>Telescope projects<CR>")
-map('n', '<leader>br', "<CMD>Telescope git_branches<CR>")
-map('n', '<leader>gs', "<CMD>Telescope git_status<CR>")
-map('n', '<leader>/', "<CMD>Telescope current_buffer_fuzzy_find<CR>")
+map("n", "<leader><space>", "<CMD>FzfLua files<CR>")
+map("n", "<leader>fg", "<CMD>FzfLua live_grep<CR>")
+map("n", "<leader>fb", "<CMD>FzfLua buffers<CR>")
+map('n', '<leader>fs', "<CMD>FzfLua grep_cword<CR>")
+map('n', '<leader>br', "<CMD>FzfLua git_branches<CR>")
+map('n', '<leader>gs', "<CMD>FzfLua git_status<CR>")
+map('n', '<leader>/', "<CMD>FzfLua lgrep_curbuf<CR>")
 
 -- Notify
 map("n", "<ESC>", "<CMD>lua require('notify').dismiss()<CR>")
@@ -112,13 +108,17 @@ map('n', ']d', vim.diagnostic.goto_next)
 map('n', '<space>q', vim.diagnostic.setloclist)
 
 -- ToggleTerm
-local git_root = "cd $(git rev-parse --show-toplevel 2>/dev/null) && clear"
-map("n", "<c-t>", "<CMD>ToggleTerm direction=float<CR>", { desc = "new tabbed terminal" })
-
-map('n', '<C-h>', '<C-w><h>', opts)
-map('n', '<C-j>', '<C-w><j>', opts)
-map('n', '<C-k>', '<C-w><k>', opts)
-map('n', '<C-l>', '<C-w><l>', opts)
+map("n", "<leader>tf", "<CMD>ToggleTerm direction=float<CR>", { desc = "new tabbed terminal" })
+map("n", "<leader>tv", "<CMD>ToggleTerm direction=vertical<CR>", { desc = "new tabbed terminal" })
+map("n", "<leader>tx", "<CMD>ToggleTerm direction=horizontal<CR>", { desc = "new tabbed terminal" })
+map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+map('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+map('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+map({'n', 'i'}, '<C-h>', '<C-w><h>', opts)
+map({'n', 'i'}, '<C-j>', '<C-w><j>', opts)
+map({'n', 'i'}, '<C-k>', '<C-w><k>', opts)
+map({'n', 'i'}, '<C-l>', '<C-w><l>', opts)
 
 -- Hop
 map("n", "<leader>m", "<CMD>HopWord<CR>")

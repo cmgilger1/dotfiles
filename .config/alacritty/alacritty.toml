@@ -5,17 +5,18 @@ import = [
 program = 'fish'
 
 [window]
-decorations = "None"
 startup_mode = "Maximized"
+dynamic_title = true
+# title = "terminal"
 
 [font]
 normal = { family = "Agave Nerd Font", style = "Regular" }
-size = 11
+size = 10 
 
 [selection]
 save_to_clipboard = true
 
 [keyboard]
 bindings = [
-{ key = "n", mods = "Control|Shift", action = "CreateNewWindow"}
+    { key = "n", mods = "Control|Shift", action = "CreateNewWindow"}
 ]

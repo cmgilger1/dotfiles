@@ -4,7 +4,7 @@ if not set -q $WEZTERM_PANE
   set -x NVIM_LISTEN_ADDRESS "/tmp/nvim$WEZTERM_PANE"
 end
 
-set -x FZF_DEFAULT_COMMAND 'fd --type file --hidden --no-ignore --exclude .git --exclude tags --exclude .cache'
+set -x FZF_DEFAULT_COMMAND 'fdfind --hidden --no-ignore'
 set -x FZF_DEFAULT_OPTS '--height 10% --reverse --no-bold'
 set -x FZF_CTRL_T_COMMAND ''
 
@@ -21,6 +21,9 @@ export LS_COLORS="$(vivid generate iceberg-dark)"
 
 bind -e \el 
 bind \el forward-char
+bind \ek up-or-search
+bind \ej down-or-search
+bind \eh backward-char
 
 set -x NVM_DIR "$HOME/.nvm"
 bass . $NVM_DIR/nvm.sh

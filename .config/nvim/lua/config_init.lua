@@ -20,3 +20,10 @@ require("core.autocommands")
 vim.api.nvim_create_user_command("UpdateMyConfig", function()
   require("core.utils.utils").updateAll()
 end, { desc = "Updates plugins, mason packages, treesitter parsers" })
+
+tmpfile=vim.fn.tempname()
+vim.fn.serverstart(tmpfile)
+vim.opt.title = true
+vim.opt.titlelen = 0
+vim.opt.titlestring = "nvim: %t [" .. tmpfile .. "]"
+

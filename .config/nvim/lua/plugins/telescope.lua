@@ -3,7 +3,8 @@ return {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
         dependencies = {
-            { "folke/trouble.nvim"}
+            { "folke/trouble.nvim"},
+            { "nvim-lua/plenary.nvim" },
         },
         config = function()
             local trouble = require("trouble.providers.telescope")

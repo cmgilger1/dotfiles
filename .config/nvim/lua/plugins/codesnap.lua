@@ -14,6 +14,7 @@ return {
                 has_line_number = true,
                 bg_padding = 0,
                 breadcrumbs_separator = "/",
+                bg_color = "#ffffff",
                 has_breadcrumbs = true,
             })
         end

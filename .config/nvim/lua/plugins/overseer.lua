@@ -3,10 +3,12 @@ return {
         'stevearc/overseer.nvim',
         event = "VimEnter",
         config = function()
-            require('overseer').setup({ })
+            require('overseer').setup({
+                strategy = "toggleterm",
+            })
             local overseer = require('overseer')
             overseer.register_template({
-                name = "dmake",
+                name = "cmake-build",
                 params = {
                     config = {
                         type = "enum",
@@ -34,11 +36,11 @@ return {
                 end
             })
             overseer.register_template({
-                name = "dbake",
+                name = "bitbake",
                 params = {
                     machine = {
                         type = "enum",
-                        choices = {"stm32mp153c-sparta-mx", "stm32mp25-eval-welma", "stm32mp15-disco-welma"},
+                        choices = {"stm32mp153c-sparta-mx", "stm32mp25-eval-welma", "stm32mp15-disco-welma", "stm32mp15-brady-disco", "stm32mp255f-hydra-mx" },
                         default = "stm32mp153c-sparta-mx"
                     },
                     image = {
@@ -61,6 +63,34 @@ return {
                     return {
                         cmd = { "dbake" },
                         args = args,
+                        components = {
+                            { "on_output_quickfix", open = true, set_diagnostics = true, close = true },
+                            "default"
+                        },
+                    }
+                end
+            })
+            overseer.register_template({
+                name = "cmake-test",
+                params = {
+                    config = {
+                        type = "enum",
+                        choices = {"freertos", "linux-arm", "linux-aarch64", "qnx", "linux"},
+                    },
+                    build = {
+                        type = "enum",
+                        choices = {"Release", "Developer", "Debug"},
+                        default = "Developer"
+                    },
+                    target = {
+                        type = "string",
+                        default = "all"
+                    }
+                },
+                builder = function(params)
+                    return {
+                        cmd = { "dmake" },
+                        args = { "-c", params.config, "-b", params.build, "-t", params.target, "-r"},
                         components = {
                             { "on_output_quickfix", open = true, set_diagnostics = true, close = true },
                             "default"
