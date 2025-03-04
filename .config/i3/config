@@ -203,45 +203,63 @@ set $bar_setting_separator           " | "
 set $bar_setting_statusCommand       i3status --config ~/.config/i3status/config
 set $bar_setting_trayoutput          full
 
-set $bar_color_background            #282828
-set $bar_color_foreground            #f2f4f8
-set $bar_color_statusline            #f2f4f8
-set $bar_color_separator             #f2f4f8
+# carbonfox
+# set $color1 #282828
+# set $color2 #f2f4f8
+# set $color3 #e4e4e5
+# set $color4 #25be6a
+# set $color5 #515151
+# set $color6 #2dc7c4
+# set $color7 #a1a1a1
 
-set $bar_color_workspace_focused_bg  #e4e4e5
-set $bar_color_workspace_focused_fg  #282828
-set $bar_color_workspace_active_bg   #25be6a 
-set $bar_color_workspace_active_fg   #282828
-set $bar_color_workspace_inactive_bg #515151
-set $bar_color_workspace_inactive_fg #282828
-set $bar_color_workspace_urgent_bg   #2dc7c4
-set $bar_color_workspace_urgent_fg   #282828
+
+set $color1 #444b6a
+set $color2 #a9b1d6
+set $color3 #7aa2f7
+set $color4 #787c99
+set $color5 #1a1b26
+set $color6 #2dc7c4
+set $color7 #32344a
+
+set $bar_color_background            $color1
+set $bar_color_foreground            $color2
+set $bar_color_statusline            $color2
+set $bar_color_separator             $color2
+
+set $bar_color_workspace_focused_bg  $color3
+set $bar_color_workspace_focused_fg  $color1
+set $bar_color_workspace_active_bg   $color4
+set $bar_color_workspace_active_fg   $color1
+set $bar_color_workspace_inactive_bg $color5
+set $bar_color_workspace_inactive_fg $color1
+set $bar_color_workspace_urgent_bg   $color6
+set $bar_color_workspace_urgent_fg   $color1
 bar {
-	position         $bar_setting_position
-	mode             $bar_setting_mode
-	font             $bar_setting_font
-	separator_symbol $bar_setting_separator
-	status_command   $bar_setting_statusCommand
-	tray_output      $bar_setting_trayoutput
+    position         $bar_setting_position
+    mode             $bar_setting_mode
+    font             $bar_setting_font
+    separator_symbol $bar_setting_separator
+    status_command   $bar_setting_statusCommand
+    tray_output      $bar_setting_trayoutput
 
-	colors {
-		background   $bar_color_background
-		statusline   $bar_color_statusline
-		separator    $bar_color_separator
+    colors {
+        background   $bar_color_background
+        statusline   $bar_color_statusline
+        separator    $bar_color_separator
 
-		focused_workspace  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_fg
-		active_workspace   $bar_color_workspace_active_bg   $bar_color_workspace_active_bg   $bar_color_workspace_active_fg
-		inactive_workspace $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_fg
-		urgent_workspace   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_fg
-	}
+        focused_workspace  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_fg
+        active_workspace   $bar_color_workspace_active_bg   $bar_color_workspace_active_bg   $bar_color_workspace_active_fg
+        inactive_workspace $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_fg
+        urgent_workspace   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_fg
+    }
 }
 
 ### Colors ###
-set $wm_color_border_active_bg       #a1a1a1
-set $wm_color_border_active_fg       #282828
-set $wm_color_border_inactive_bg     #515151
-set $wm_color_border_inactive_fg     #282828
-set $wm_color_background             #282828
+set $wm_color_border_active_bg       $color7
+set $wm_color_border_active_fg       $color1
+set $wm_color_border_inactive_bg     $color5
+set $wm_color_border_inactive_fg     $color1
+set $wm_color_background             $color1
 
 # class                 border                       background                   text                         indicator                    child_border
 client.focused          $wm_color_border_active_bg   $wm_color_border_active_bg   $wm_color_border_active_fg   $wm_color_border_active_bg   $wm_color_border_active_bg
@@ -287,4 +305,5 @@ workspace $ws1 output HDMI-1-0 eDP-1
 workspace $ws3 output DP-3-1-1
 bindsym $mod+m exec ~/.screenlayout/dock.sh
 bindsym $mod+Shift+m exec ~/.screenlayout/single.sh
+bindsym $mod+z bar mode toggle
 

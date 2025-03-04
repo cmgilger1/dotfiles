@@ -5,59 +5,31 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        opts = {
-            servers = {
-                clangd = {
-                    root_dir = function(fname)
-                        return require("lspconfig.util").root_pattern("compile_commands.json")
-                    end,
-                    cmd = {
-                        "clangd",
-                        "--background-index",
-                        "--query-driver=/usr/bin/gcc",
-                        "--clang-tidy",
-                        "--header-insertion=iwyu",
-                        "--completion-style=detailed",
-                        "--function-arg-placeholders",
-                        "--fallback-style=llvm",
-                    },
-                    init_options = {
-                        usePlaceholders = true,
-                        completeUnimported = true,
-                        clangdFileStatus = true,
-                    },
-                    on_attach = function(_, buf)
-                        require("clangd_extensions.inlay_hints").setup_autocmd()
-                        require("clangd_extensions.inlay_hints").set_inlay_hints()
-                    end,
-                },
-            },
-        },
         config = function()
             require('lspconfig').clangd.setup {}
             require('lspconfig').lua_ls.setup {}
             require('lspconfig').pyright.setup {}
             require('lspconfig').cmake.setup {}
-            require('sonarlint').setup({
-                server = {
-                    cmd = {
-                        'sonarlint-language-server',
-                        -- Ensure that sonarlint-language-server uses stdio channel
-                        '-stdio',
-                        '-analyzers',
-                        -- paths to the analyzers you need, using those for python and java in this example
-                        vim.fn.expand("/home/caroline/.local/nvim/mason/share/sonarlint-analyzers/sonarpython.jar"),
-                        vim.fn.expand("/home/caroline/.local/nvim/mason/share/sonarlint-analyzers/sonarcfamily.jar"),
-                        vim.fn.expand("/home/caroline/.local/nvim/mason/share/sonarlint-analyzers/sonarjava.jar"),
-                    }
-                },
-                filetypes = {
-                    -- Tested and working
-                    'python',
-                    'c++',
-                    'c'
-                }
-            })
+            -- require('sonarlint').setup({
+            --     server = {
+            --         cmd = {
+            --             'sonarlint-language-server',
+            --             -- Ensure that sonarlint-language-server uses stdio channel
+            --             '-stdio',
+            --             '-analyzers',
+            --             -- paths to the analyzers you need, using those for python and java in this example
+            --             vim.fn.expand("/home/caroline/.local/nvim/mason/share/sonarlint-analyzers/sonarpython.jar"),
+            --             vim.fn.expand("/home/caroline/.local/nvim/mason/share/sonarlint-analyzers/sonarcfamily.jar"),
+            --             vim.fn.expand("/home/caroline/.local/nvim/mason/share/sonarlint-analyzers/sonarjava.jar"),
+            --         }
+            --     },
+            --     filetypes = {
+            --         -- Tested and working
+            --         'python',
+            --         'c++',
+            --         'c'
+            --     }
+            -- })
 
             vim.diagnostic.config({
                 virtual_text = false,
@@ -73,8 +45,8 @@ return {
             end
         end,
         dependencies = {
-            { "williamboman/mason.nvim" },
-            { "williamboman/mason-lspconfig.nvim" },
+            -- { "williamboman/mason.nvim" },
+            -- { "williamboman/mason-lspconfig.nvim" },
             { "hrsh7th/cmp-nvim-lsp" },
             { "p00f/clangd_extensions.nvim" },
             { "https://gitlab.com/schrieveslaach/sonarlint.nvim" },

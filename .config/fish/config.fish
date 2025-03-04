@@ -12,12 +12,12 @@ set -x FZF_CTRL_T_COMMAND ''
 set fish_color_valid_path
 
 function fish_prompt -d "Write out the prompt"
-    echo (set_color green)' 󱞩 '(set_color normal) 
+    echo (set_color green)'  '(set_color normal) 
 end
 
 set -x AARCH64_SDK "/home/caroline/ti/ti-am62x-sdk/"
 
-export LS_COLORS="$(vivid generate iceberg-dark)"
+set -x LS_COLORS (vivid generate iceberg-dark)
 
 bind -e \el 
 bind \el forward-char
@@ -33,6 +33,7 @@ fish_add_path -p "$HOME/bin"
 fish_add_path -p "$HOME/.local/bin"
 fish_add_path -p "/opt/cmake-3.30.4/bin"
 fish_add_path -p "/opt/nvim-linux64/bin"
+fish_add_path -p "/home/linuxbrew/.linuxbrew/bin/"
 
 set -x XDG_CONFIG_DIRS "$HOME/.config/:$XDG_CONFIG_DIRS"
 
@@ -41,3 +42,5 @@ set -x MASON "$HOME/.local/share/mason"
 
 #bass . ~/qnx/qnx710/qnxsdp-env.sh 2>&1 > /dev/null
 source "$HOME/.cargo/env.fish" 
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+

@@ -26,6 +26,7 @@ vim_opts({
         autowrite = true,
         autochdir = false,
         termguicolors = true,
+        guifont = "IosevkaSS05:h10",
         undofile = true,
         sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
         hidden = true,

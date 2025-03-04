@@ -1,5 +1,5 @@
 import = [
-    "~/repos/dotfiles/.config/alacritty/themes/themes/carbonfox.toml"
+    "~/repos/dotfiles/.config/alacritty/themes/themes/rose-pine.toml"
 ]
 [shell]
 program = 'fish'
@@ -7,16 +7,11 @@ program = 'fish'
 [window]
 startup_mode = "Maximized"
 dynamic_title = true
-# title = "terminal"
 
 [font]
-normal = { family = "Agave Nerd Font", style = "Regular" }
-size = 10 
+normal = { family = "IosevkaSS05", style = "Regular" }
+size = 10
 
 [selection]
 save_to_clipboard = true
 
-[keyboard]
-bindings = [
-    { key = "n", mods = "Control|Shift", action = "CreateNewWindow"}
-]

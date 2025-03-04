@@ -1,3 +1,3 @@
 function fish_title
-    echo "fish: $(pwd)";
+    echo "fish: (pwd)";
 end

@@ -16,6 +16,9 @@ require("core.keybindings")
 require("core.plugins")
 require("core.utils.utils")
 require("core.autocommands")
+if vim.g.neovide then
+    require("core.neovide")
+end
 
 vim.api.nvim_create_user_command("UpdateMyConfig", function()
   require("core.utils.utils").updateAll()
