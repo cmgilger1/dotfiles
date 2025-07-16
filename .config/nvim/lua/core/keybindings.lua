@@ -36,6 +36,8 @@ end
 
 map({ 'n' }, '<leader>qf', toggle_quickfix)
 
+map({ 'n' }, '<leader>cn', '<cmd>NoiceDismiss<cr>')
+
 -- Oil
 map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 

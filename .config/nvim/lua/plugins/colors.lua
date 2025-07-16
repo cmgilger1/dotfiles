@@ -17,6 +17,17 @@ return {
         end
     },
     {
+        "navarasu/onedark.nvim",
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = function()
+            -- require('onedark').setup {
+            --     style = 'deep'
+            -- }
+            -- -- Enable theme
+            -- require('onedark').load()
+        end
+    },
+    {
         'AlexvZyl/nordic.nvim',
         lazy = false,
         priority = 1000,
@@ -29,7 +40,7 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            -- vim.cmd.colorscheme("carbonfox")
+            vim.cmd.colorscheme("carbonfox")
             -- vim.cmd.colorscheme("nordfox")
             -- vim.cmd.colorscheme("nightfox")
             -- vim.cmd.colorscheme("dawnfox")
@@ -49,9 +60,9 @@ return {
 
     },
     {
-        "rose-pine/neovim", 
+        "rose-pine/neovim",
         config = function()
-            vim.cmd.colorscheme("rose-pine-main")
+            -- vim.cmd.colorscheme("rose-pine-main")
             -- vim.cmd.colorscheme("rose-pine-moon")
             -- vim.cmd.colorscheme("rose-pine-dawn")
         end

@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("core.options")
 require("core.keybindings")
 require("core.plugins")
+require("core.lsp")
 require("core.utils.utils")
 require("core.autocommands")
 if vim.g.neovide then

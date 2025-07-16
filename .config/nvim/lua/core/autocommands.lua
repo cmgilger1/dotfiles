@@ -12,7 +12,6 @@ usercmd("OverseerRestartLast", function()
     end
 end, {})
 
-
 -- disables code folding for the start screen
 cmd({ "FileType" }, {
   desc = "Disable folding for alpha buffer",

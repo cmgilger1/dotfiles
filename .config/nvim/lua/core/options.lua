@@ -26,7 +26,7 @@ vim_opts({
         autowrite = true,
         autochdir = false,
         termguicolors = true,
-        guifont = "IosevkaSS05:h10",
+        guifont = "JetBrainsMono Nerd Font Mono:h10",
         undofile = true,
         sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
         hidden = true,
@@ -46,5 +46,6 @@ vim_opts({
         hlsearch = true,
         confirm = true,
         linebreak = false,
+        winborder = 'rounded'
     },
 })

@@ -7,18 +7,11 @@ return {
                 {
                     ft = "snacks_terminal",
                     size = { height = 0.2 },
-                    title = "%{b:term_title}",
-                    filter = function(_buf, win)
-                        return vim.w[win].snacks_win
-                        and vim.w[win].snacks_win.position == pos
-                        and vim.w[win].snacks_win.relative == "editor"
-                        and not vim.w[win].trouble_preview
-                    end,
+                    title = "terminal"
                 },
-                "Trouble",
-                { ft = "qf", title = "QuickFix" },
+                { ft = "qf", title = "quickfix" },
                 {
-                    title = "Overseer",
+                    title = "overseer",
                     ft = "overseer",
                     -- pinned = true,
                     -- collapsed = true, -- show window as closed/collapsed on start

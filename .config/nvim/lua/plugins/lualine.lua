@@ -6,21 +6,22 @@ return {
         -- Author: shadmansaleh
         -- Credit: glepnir
         local lualine = require('lualine')
+        local cmake = require('cmake-tools')
 
         -- Color table for highlights
         -- stylua: ignore
         local colors = {
-            bg       = '#32344a',
-            fg       = '#a9b1d6',
-            yellow   = '#e0af68',
-            cyan     = '#449dab',
-            darkblue = '#7aa2f7',
-            green    = '#9ece6a',
-            orange   = '#ff9e64',
-            violet   = '#ad8ee6',
-            magenta  = '#bb9af7',
-            blue     = '#7da6ff',
-            red      = '#ff7a93',
+            bg       = '#161616',
+            fg       = '#f2f4f8',
+            yellow   = '#08bdba',
+            cyan     = '#33b1ff',
+            darkblue = '#6690d9',
+            green    = '#25be6a',
+            orange   = '#07a19e',
+            violet   = '#be95ff',
+            magenta  = '#c8a5ff',
+            blue     = '#78a9ff',
+            red      = '#ee5396',
         }
 
         local conditions = {
@@ -156,6 +157,152 @@ return {
             end,
         }
 
+
+
+        ins_left {
+            function()
+                local c_preset = cmake.get_configure_preset()
+                return "CMake: [" .. (c_preset and c_preset or "X") .. "]"
+            end,
+            icon = "",
+            cond = function()
+                return cmake.is_cmake_project() and cmake.has_cmake_preset()
+            end,
+            on_click = function(n, mouse)
+                if (n == 1) then
+                    if (mouse == "l") then
+                        vim.cmd("CMakeSelectConfigurePreset")
+                    end
+                end
+            end
+        }
+
+        ins_left {
+            function()
+                local type = cmake.get_build_type()
+                return "CMake: [" .. (type and type or "") .. "]"
+            end,
+            icon = "",
+            cond = function()
+                return cmake.is_cmake_project() and not cmake.has_cmake_preset()
+            end,
+            on_click = function(n, mouse)
+                if (n == 1) then
+                    if (mouse == "l") then
+                        vim.cmd("CMakeSelectBuildType")
+                    end
+                end
+            end
+        }
+
+        ins_left {
+            function()
+                local kit = cmake.get_kit()
+                return "[" .. (kit and kit or "X") .. "]"
+            end,
+            icon = "",
+            cond = function()
+                return cmake.is_cmake_project() and not cmake.has_cmake_preset()
+            end,
+            on_click = function(n, mouse)
+                if (n == 1) then
+                    if (mouse == "l") then
+                        vim.cmd("CMakeSelectKit")
+                    end
+                end
+            end
+        }
+
+        ins_left {
+            function()
+                return "Build"
+            end,
+            icon = "",
+            cond = cmake.is_cmake_project,
+            on_click = function(n, mouse)
+                if (n == 1) then
+                    if (mouse == "l") then
+                        vim.cmd("CMakeBuild")
+                    end
+                end
+            end
+        }
+
+        ins_left {
+            function()
+                local b_preset = cmake.get_build_preset()
+                return "[" .. (b_preset and b_preset or "X") .. "]"
+            end,
+            icon = " ",
+            cond = function()
+                return cmake.is_cmake_project() and cmake.has_cmake_preset()
+            end,
+            on_click = function(n, mouse)
+                if (n == 1) then
+                    if (mouse == "l") then
+                        vim.cmd("CMakeSelectBuildPreset")
+                    end
+                end
+            end
+        }
+
+        ins_left {
+            function()
+                local b_target = cmake.get_build_target()
+                return "[" .. (b_target and b_target or "X") .. "]"
+            end,
+            cond = cmake.is_cmake_project,
+            on_click = function(n, mouse)
+                if (n == 1) then
+                    if (mouse == "l") then
+                        vim.cmd("CMakeSelectBuildTarget")
+                    end
+                end
+            end
+        }
+
+        ins_left {
+            function()
+                return ""
+            end,
+            cond = cmake.is_cmake_project,
+            on_click = function(n, mouse)
+                if (n == 1) then
+                    if (mouse == "l") then
+                        vim.cmd("CMakeDebug")
+                    end
+                end
+            end
+        }
+
+        ins_left {
+            function()
+                return ""
+            end,
+            cond = cmake.is_cmake_project,
+            on_click = function(n, mouse)
+                if (n == 1) then
+                    if (mouse == "l") then
+                        vim.cmd("CMakeRun")
+                    end
+                end
+            end
+        }
+
+        ins_left {
+            function()
+                local l_target = cmake.get_launch_target()
+                return "[" .. (l_target and l_target or "X") .. "]"
+            end,
+            cond = cmake.is_cmake_project,
+            on_click = function(n, mouse)
+                if (n == 1) then
+                    if (mouse == "l") then
+                        vim.cmd("CMakeSelectLaunchTarget")
+                    end
+                end
+            end
+        }
 
         ins_right {
             -- Lsp server name .
