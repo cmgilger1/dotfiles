@@ -89,3 +89,29 @@ map('n', 'wj', '<cmd>horizontal resize -2<cr>')
 map('n', 'wk', '<cmd>horizontal resize +2<cr>')
 map('n', 'wh', '<cmd>vertical resize -2<cr>')
 map('n', 'wl', '<cmd>vertical resize +2<cr>')
+
+local function hide_diagnostics()
+    vim.diagnostic.config({  -- https://neovim.io/doc/user/diagnostic.html
+        virtual_lines = false,
+        signs = false,
+        underline = false,
+    })
+end
+local function show_diagnostics()
+    vim.diagnostic.config({
+        virtual_lines = {
+            current_line = true
+        },
+        signs = {
+            active = true,
+            text = {
+              [vim.diagnostic.severity.ERROR] = "",
+              [vim.diagnostic.severity.WARN]  = "",
+              [vim.diagnostic.severity.HINT]  = "󰟃",
+              [vim.diagnostic.severity.INFO]  = "",
+            },
+        },
+    })
+end
+vim.keymap.set("n", "<leader>dh", hide_diagnostics)
+vim.keymap.set("n", "<leader>ds", show_diagnostics)

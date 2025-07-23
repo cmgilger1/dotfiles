@@ -1,5 +1,6 @@
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('clangd')
+vim.lsp.enable('bitbakels')
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
@@ -17,7 +18,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.diagnostic.config({
     virtual_lines = {
         current_line = true
-    }
-
+    },
+    signs = {
+        active = true,
+        text = {
+          [vim.diagnostic.severity.ERROR] = "",
+          [vim.diagnostic.severity.WARN]  = "",
+          [vim.diagnostic.severity.HINT]  = "󰟃",
+          [vim.diagnostic.severity.INFO]  = "",
+        },
+    },
 })
-
