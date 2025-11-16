@@ -12,6 +12,14 @@ usercmd("OverseerRestartLast", function()
     end
 end, {})
 
+cmd({ "VimEnter" }, {
+    callback = function()
+        if vim.fn.argc() == 0 then
+            vim.cmd("Oil")
+        end
+    end,
+})
+
 -- disables code folding for the start screen
 cmd({ "FileType" }, {
   desc = "Disable folding for alpha buffer",

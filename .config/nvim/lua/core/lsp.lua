@@ -1,6 +1,5 @@
-vim.lsp.enable('lua_ls')
+vim.lsp.enable('luals')
 vim.lsp.enable('clangd')
-vim.lsp.enable('bitbakels')
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
