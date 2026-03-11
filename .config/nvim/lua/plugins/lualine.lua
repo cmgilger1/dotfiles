@@ -8,22 +8,53 @@ return {
         local lualine = require('lualine')
         local cmake = require('cmake-tools')
 
-        -- Color table for highlights
-        -- stylua: ignore
+        -- catppuccin mocha
         local colors = {
-            bg       = '#161616',
-            fg       = '#f2f4f8',
-            yellow   = '#08bdba',
-            cyan     = '#33b1ff',
-            darkblue = '#6690d9',
-            green    = '#25be6a',
-            orange   = '#07a19e',
-            violet   = '#be95ff',
-            magenta  = '#c8a5ff',
-            blue     = '#78a9ff',
-            red      = '#ee5396',
+            bg       = '#303446',
+            fg       = '#c6d0f5',
+            yellow   = '#e6c07b',
+            cyan     = '#81c8be',
+            darkblue = '#8caaee',
+            green    = '#a6d189',
+            orange   = '#e5c890',
+            violet   = '#f4b8e4',
+            magenta  = '#f4b8e4',
+            blue     = '#8caaee',
+            red      = '#e78284',
         }
 
+
+        -- catppuccin mocha
+        -- local colors = {
+        --     bg       = '#1e1e2e',
+        --     fg       = '#d6d6d6',
+        --     yellow   = '#e6c07b',
+        --     cyan     = '#54afbc',
+        --     darkblue = '#61afef',
+        --     green    = '#98c379',
+        --     orange   = '#e5c07b',
+        --     violet   = '#634962',
+        --     magenta  = '#c678dd',
+        --     blue     = '#61afef',
+        --     red      = '#e86671',
+        -- }
+
+        -- catppuccin latte
+        -- local colors = {
+        --     bg       = '#eff1f5',
+        --     fg       = '#4c4f69',
+        --     yellow   = '#df8e1d',
+        --     cyan     = '#179299',
+        --     darkblue = '#1e66f5',
+        --     green    = '#40a02b',
+        --     orange   = '#d20f39',
+        --     violet   = '#ea76cb',
+        --     magenta  = '#ea76cb',
+        --     blue     = '#1e66f5',
+        --     red      = '#d20f39',
+        -- }
+
+               
         local conditions = {
             buffer_not_empty = function()
                 return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
@@ -84,55 +115,12 @@ return {
         end
 
         ins_left {
-            function()
-                return ' '
-            end,
-            padding = { left = 0, right = 1 }, -- We don't need space before this
-        }
-
-        ins_left {
-            -- mode component
-            function()
-                return ''
-            end,
-            color = function()
-                -- auto change color according to neovims mode
-                local mode_color = {
-                    n = colors.red,
-                    i = colors.green,
-                    v = colors.blue,
-                    [''] = colors.blue,
-                    V = colors.blue,
-                    c = colors.magenta,
-                    no = colors.red,
-                    s = colors.orange,
-                    S = colors.orange,
-                    [''] = colors.orange,
-                    ic = colors.yellow,
-                    R = colors.violet,
-                    Rv = colors.violet,
-                    cv = colors.red,
-                    ce = colors.red,
-                    r = colors.cyan,
-                    rm = colors.cyan,
-                    ['r?'] = colors.cyan,
-                    ['!'] = colors.red,
-                    t = colors.red,
-                }
-                return { fg = mode_color[vim.fn.mode()] }
-            end,
-            padding = { right = 1 },
-        }
-
-        ins_left {
             'filename',
             cond = conditions.buffer_not_empty,
             color = { fg = colors.magenta },
         }
 
         ins_left { 'location' }
-
-        ins_left { 'progress', color = { fg = colors.fg}  }
 
         ins_left {
             'diagnostics',
@@ -145,10 +133,6 @@ return {
             },
         }
 
-        ins_left {
-            'overseer',
-        }
-
         -- Insert mid section. You can make any number of sections in neovim :)
         -- for lualine it's any number greater then 2
         ins_left {
@@ -157,151 +141,28 @@ return {
             end,
         }
 
-
-
-        ins_left {
-            function()
-                local c_preset = cmake.get_configure_preset()
-                return "CMake: [" .. (c_preset and c_preset or "X") .. "]"
-            end,
-            icon = "",
-            cond = function()
-                return cmake.is_cmake_project() and cmake.has_cmake_preset()
-            end,
-            on_click = function(n, mouse)
-                if (n == 1) then
-                    if (mouse == "l") then
-                        vim.cmd("CMakeSelectConfigurePreset")
-                    end
-                end
-            end
-        }
-
         ins_left {
             function()
                 local type = cmake.get_build_type()
-                return "CMake: [" .. (type and type or "") .. "]"
+                return "Build Type : [" .. (type or "X") .. "]"
             end,
-            icon = "",
-            cond = function()
-                return cmake.is_cmake_project() and not cmake.has_cmake_preset()
-            end,
-            on_click = function(n, mouse)
-                if (n == 1) then
-                    if (mouse == "l") then
-                        vim.cmd("CMakeSelectBuildType")
-                    end
-                end
-            end
-        }
-
-        ins_left {
-            function()
-                local kit = cmake.get_kit()
-                return "[" .. (kit and kit or "X") .. "]"
-            end,
-            icon = "",
-            cond = function()
-                return cmake.is_cmake_project() and not cmake.has_cmake_preset()
-            end,
-            on_click = function(n, mouse)
-                if (n == 1) then
-                    if (mouse == "l") then
-                        vim.cmd("CMakeSelectKit")
-                    end
-                end
-            end
-        }
-
-        ins_left {
-            function()
-                return "Build"
-            end,
-            icon = "",
             cond = cmake.is_cmake_project,
-            on_click = function(n, mouse)
-                if (n == 1) then
-                    if (mouse == "l") then
-                        vim.cmd("CMakeBuild")
-                    end
-                end
-            end
         }
 
         ins_left {
             function()
                 local b_preset = cmake.get_build_preset()
-                return "[" .. (b_preset and b_preset or "X") .. "]"
+                return "Build Preset: [" .. (b_preset or "X") .. "]"
             end,
-            icon = " ",
-            cond = function()
-                return cmake.is_cmake_project() and cmake.has_cmake_preset()
-            end,
-            on_click = function(n, mouse)
-                if (n == 1) then
-                    if (mouse == "l") then
-                        vim.cmd("CMakeSelectBuildPreset")
-                    end
-                end
-            end
+            cond = cmake.is_cmake_project,
         }
 
         ins_left {
             function()
                 local b_target = cmake.get_build_target()
-                return "[" .. (b_target and b_target or "X") .. "]"
+                return "Target : [" .. (b_target or "X") .. "]"
             end,
             cond = cmake.is_cmake_project,
-            on_click = function(n, mouse)
-                if (n == 1) then
-                    if (mouse == "l") then
-                        vim.cmd("CMakeSelectBuildTarget")
-                    end
-                end
-            end
-        }
-
-        ins_left {
-            function()
-                return ""
-            end,
-            cond = cmake.is_cmake_project,
-            on_click = function(n, mouse)
-                if (n == 1) then
-                    if (mouse == "l") then
-                        vim.cmd("CMakeDebug")
-                    end
-                end
-            end
-        }
-
-        ins_left {
-            function()
-                return ""
-            end,
-            cond = cmake.is_cmake_project,
-            on_click = function(n, mouse)
-                if (n == 1) then
-                    if (mouse == "l") then
-                        vim.cmd("CMakeRun")
-                    end
-                end
-            end
-        }
-
-        ins_left {
-            function()
-                local l_target = cmake.get_launch_target()
-                return "[" .. (l_target and l_target or "X") .. "]"
-            end,
-            cond = cmake.is_cmake_project,
-            on_click = function(n, mouse)
-                if (n == 1) then
-                    if (mouse == "l") then
-                        vim.cmd("CMakeSelectLaunchTarget")
-                    end
-                end
-            end
         }
 
         ins_right {
@@ -322,7 +183,7 @@ return {
                 return msg
             end,
             icon = ' ',
-            color = { fg = '#ffffff' },
+            color = { fg = colors.cyan },
         }
 
         -- Add components to right sections

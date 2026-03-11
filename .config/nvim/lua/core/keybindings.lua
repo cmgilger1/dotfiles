@@ -17,10 +17,10 @@ map({ "n", "v" }, "<leader>y", [["+y]])
 map({ "n", "v" }, "<leader>Y", [["+Y]])
 
 -- easy pane movements
-map({ 'n', 'i', 'v' }, '<C-h>', '<C-w>h')
-map({ 'n', 'i', 'v' }, '<C-l>', '<C-w>l')
-map({ 'n', 'i', 'v' }, '<C-k>', '<C-w>k')
-map({ 'n', 'i', 'v' }, '<C-j>', '<C-w>j')
+map({ 'n', 'i', 't', 'v' }, '<C-h>', '<C-w>h')
+map({ 'n', 'i', 't', 'v' }, '<C-l>', '<C-w>l')
+map({ 'n', 'i', 't', 'v' }, '<C-k>', '<C-w>k')
+map({ 'n', 'i', 't', 'v' }, '<C-j>', '<C-w>j')
 
 -- toggle quick fix
 local function toggle_quickfix()
@@ -39,7 +39,7 @@ map({ 'n' }, '<leader>qf', toggle_quickfix)
 map({ 'n' }, '<leader>cn', '<cmd>NoiceDismiss<cr>')
 
 -- Oil
-map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+map("n", "-", "<cmd>lua require('oil').open_float()<cr>", { desc = "Open parent directory" })
 
 -- Aerial
 map("n", "<leader>at", "<CMD>AerialToggle right<CR>")

@@ -213,19 +213,35 @@ set $bar_setting_separator           " | "
 set $bar_setting_statusCommand       ~/.config/i3status/mystatus.sh
 set $bar_setting_trayoutput          full
 
-set $bar_color_background            #161616
-set $bar_color_foreground            #f2f4f8
-set $bar_color_statusline            #f2f4f8
-set $bar_color_separator             #f2f4f8
+# catppucin latte
+set $bar_color_background            #eff1f5
+set $bar_color_foreground            #4c4f69
+set $bar_color_statusline            #4c4f69
+set $bar_color_separator             #4c4f69
 
-set $bar_color_workspace_focused_bg  #2a2a2a
-set $bar_color_workspace_focused_fg  #f9fbff
-set $bar_color_workspace_active_bg   #2a2a2a
-set $bar_color_workspace_active_fg   #b6b8bb
-set $bar_color_workspace_inactive_bg #161616
-set $bar_color_workspace_inactive_fg #b6b8bb
+set $bar_color_workspace_focused_bg  #cba6f7
+set $bar_color_workspace_focused_fg  #11111b
+set $bar_color_workspace_active_bg   #cba6f7
+set $bar_color_workspace_active_fg   #11111b
+set $bar_color_workspace_inactive_bg #11111b
+set $bar_color_workspace_inactive_fg #cdd6f4
 set $bar_color_workspace_urgent_bg   #f2f4f8
 set $bar_color_workspace_urgent_fg   #525253
+
+# catppuccin mocha
+# set $bar_color_background            #161616
+# set $bar_color_foreground            #f2f4f8
+# set $bar_color_statusline            #f2f4f8
+# set $bar_color_separator             #f2f4f8
+#
+# set $bar_color_workspace_focused_bg  #2a2a2a
+# set $bar_color_workspace_focused_fg  #f9fbff
+# set $bar_color_workspace_active_bg   #2a2a2a
+# set $bar_color_workspace_active_fg   #b6b8bb
+# set $bar_color_workspace_inactive_bg #161616
+# set $bar_color_workspace_inactive_fg #b6b8bb
+# set $bar_color_workspace_urgent_bg   #f2f4f8
+# set $bar_color_workspace_urgent_fg   #525253
 bar {
 	position         $bar_setting_position
 	mode             $bar_setting_mode

@@ -3,7 +3,7 @@ vim.opt.shortmess:append("sIW")
 vim_opts({
     opt = {
         splitbelow = true,
-        shell = "/usr/bin/fish",
+        shell = vim.env.SHELL,
         splitright = true,
         showmode = false,
         numberwidth = 4,

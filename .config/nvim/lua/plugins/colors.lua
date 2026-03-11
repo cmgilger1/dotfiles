@@ -5,7 +5,10 @@ return {
         name = "catppuccin",
         priority = 1000,
         config = function()
-            -- vim.cmd.colorscheme("catppuccin")
+            require('catppuccin').setup({
+                transparent_background = true
+            })
+            vim.cmd.colorscheme("catppuccin-frappe")
         end,
     },
     {
@@ -40,7 +43,7 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme("carbonfox")
+            -- vim.cmd.colorscheme("carbonfox")
             -- vim.cmd.colorscheme("nordfox")
             -- vim.cmd.colorscheme("nightfox")
             -- vim.cmd.colorscheme("dawnfox")

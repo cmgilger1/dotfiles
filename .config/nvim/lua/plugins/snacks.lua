@@ -6,7 +6,7 @@ return {
         ---@type snacks.Config
         opts = {
             bigfile = { enabled = true },
-            dashboard = { enabled = true },
+            dashboard = { enabled = false },
             explorer = { enabled = true },
             indent = { enabled = true },
             input = { enabled = true },
@@ -29,7 +29,7 @@ return {
         },
         keys = {
             -- Top Pickers & Explorer
-            { "<leader><space>", function() Snacks.picker.files() end, desc = "Smart Find Files" },
+            { "<leader><space>", function() Snacks.picker.files( { layout = { preset = "select" } }) end, desc = "Smart Find Files" },
             { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
             { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
             { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
@@ -151,29 +151,29 @@ return {
         config = function()
             require("snacks").setup(
             {
-                dashboard = {
-                    preset = {
-                        keys = {
-                            {icon = " ",key = "n", desc = "New File", action = ":ene | startinsert"},
-                            {icon = "󱩾 ",key = "t", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')"},
-                            {icon = " ",key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')"},
-                            {icon = " ",key = "r", desc = "Recent", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-                            {icon = "󰒲 ",key = "l", desc = "Lazy", action = ":Lazy"},
-                            {icon = "󰗼 ", key = 'q', desc = "Quit", action = ":qa" },
-                        },
-                        header = [[
-▄▄▄▄  ▗▞▀▚▖ ▄▄▄  ▄   ▄ ▄ ▄▄▄▄  
-█   █ ▐▛▀▀▘█   █ █   █ ▄ █ █ █ 
-█   █ ▝▚▄▄▖▀▄▄▄▀  ▀▄▀  █ █   █ 
-█                      █       ]],
-
-                },
-               },
+--                 dashboard = {
+--                     preset = {
+--                         keys = {
+--                             {icon = " ",key = "n", desc = "New File", action = ":ene | startinsert"},
+--                             {icon = "󱩾 ",key = "t", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')"},
+--                             {icon = " ",key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')"},
+--                             {icon = " ",key = "r", desc = "Recent", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+--                             {icon = "󰒲 ",key = "l", desc = "Lazy", action = ":Lazy"},
+--                             {icon = "󰗼 ", key = 'q', desc = "Quit", action = ":qa" },
+--                         },
+--                         header = [[
+-- ▄▄▄▄  ▗▞▀▚▖ ▄▄▄  ▄   ▄ ▄ ▄▄▄▄  
+-- █   █ ▐▛▀▀▘█   █ █   █ ▄ █ █ █ 
+-- █   █ ▝▚▄▄▖▀▄▄▄▀  ▀▄▀  █ █   █ 
+-- █                      █       ]],
+--
+--                 },
+               -- },
                picker = {
                    sources = {
                        explorer = {
                            layout = {
-                               preset = "vertical"
+                               preset = "vertical",
                            },
                            git_untracked = false,
                            auto_close = true,

@@ -1,5 +1,5 @@
 import = [
-    "~/repos/dotfiles/.config/alacritty/themes/themes/carbonfox.toml"
+    "~/repos/dotfiles/.config/alacritty/themes/themes/catppuccin.toml"
 ]
 
 [shell]
@@ -10,8 +10,8 @@ startup_mode = "Maximized"
 dynamic_title = true
 
 [font]
-normal = { family = "JetBrainsMono Nerd Font", style = "Light" }
-size = 13
+normal = { family = "FantasqueSansM Nerd Font Mono", style = "Light" }
+size = 10.5
 
 [selection]
 save_to_clipboard = true
