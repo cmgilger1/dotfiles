@@ -38,8 +38,6 @@ map({ 'n' }, '<leader>qf', toggle_quickfix)
 
 map({ 'n' }, '<leader>cn', '<cmd>NoiceDismiss<cr>')
 
--- Oil
-map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Aerial
 map("n", "<leader>at", "<CMD>AerialToggle right<CR>")
@@ -58,29 +56,48 @@ map("i", "<C-a>", "<C-o>A")
 map('n', '<leader>bb', '<cmd>CMakeBuild<cr>')
 map('n', '<leader>ot', '<cmd>OverseerToggle<cr>')
 
-
--- More LSP stuff
--- lsp agnostic global rename
-map("n", "rg", ":%s/<C-r><C-w>//g<Left><Left>", { desc = "global substitution" })
-map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-map('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-map('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<cr>')
-map({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
-map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-map('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-map('n', '<M-o>', '<cmd>ClangdSwitchSourceHeader<CR>')
-map('n', '<space>k', vim.diagnostic.open_float)
-map('n', '[d', vim.diagnostic.goto_prev)
-map('n', ']d', vim.diagnostic.goto_next)
-map('n', '<space>q', vim.diagnostic.setloclist)
-
+--
+-- -- More LSP stuff
+-- -- lsp agnostic global rename
+-- map("n", "rg", ":%s/<C-r><C-w>//g<Left><Left>", { desc = "global substitution" })
+-- map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+-- map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+-- map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+-- map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+-- map('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+-- map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+-- map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+-- map('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<cr>')
+-- map({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
+-- map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+-- map('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+-- map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+-- map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+-- map('n', '<M-o>', '<cmd>ClangdSwitchSourceHeader<CR>')
+-- map('n', '<space>k', vim.diagnostic.open_float)
+-- map('n', '[d', vim.diagnostic.goto_prev)
+-- map('n', ']d', vim.diagnostic.goto_next)
+-- map('n', '<space>q', vim.diagnostic.setloclist)
+--
+-- map("n", "<leader>hs", gs.stage_hunk, { desc = "stage hunk" })
+-- map("n", "<leader>hr", gs.reset_hunk, { desc = "reset hunk" })
+-- map("n", "<leader>hS", gs.stage_buffer, { desc = "stage buffer" })
+-- map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "undo stage hunk" })
+-- map("n", "<leader>hR", gs.reset_buffer, { desc = "reset buffer" })
+-- map("n", "<leader>hp", gs.preview_hunk, { desc = "preview hunk" })
+-- map("n", "<leader>hb", function()
+--     gs.blame_line({ full = true })
+-- end, { desc = "complete blame line history" })
+-- map("n", "<leader>lb", gs.toggle_current_line_blame, { desc = "toggle blame line" })
+-- -- diff at current working directory
+-- map("n", "<leader>hd", gs.diffthis, { desc = "diff at cwd" })
+-- -- diff at root of git repository
+-- map("n", "<leader>hD", function()
+--     gs.diffthis("~")
+-- end, { desc = "diff at root of git repo" })
+-- map("n", "<leader>td", gs.toggle_deleted, { desc = "toggle deleted line" })
+--
+--
 -- autosave
 map("n", "<leader>as", "<CMD>ASToggle<CR>", { desc = "toggle autosave" })
 

@@ -11,6 +11,7 @@ vim_opts({
         guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20",
         cursorline = true,
         cursorlineopt = "number",
+        equalalways = false,
         updatetime = 100,
         textwidth = 0,
         breakindent = true,

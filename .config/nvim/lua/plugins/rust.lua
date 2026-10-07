@@ -1,7 +1,48 @@
-return {
-	{
-  'mrcjkb/rustaceanvim',
-  version = '^6', -- Recommended
-  lazy = false, -- This plugin is already lazy
+vim.pack.add({ 'https://github.com/mrcjkb/rustaceanvim'})
+vim.pack.add({ 'https://github.com/chrisgrieser/nvim-lsp-endhints'})
+require('lsp-endhints').setup()
+
+vim.g.rustaceanvim = {
+  -- Plugin configuration
+  tools = {
+  },
+  -- LSP configuration
+  server = {
+    on_attach = function(client, bufnr)
+      -- you can also put keymaps in here
+    end,
+    default_settings = {
+      -- rust-analyzer language server configuration
+      ['rust-analyzer'] = {
+      },
+    },
+  },
+  -- DAP configuration
+  dap = {
+  },
 }
-}
+
+local bufnr = vim.api.nvim_get_current_buf()
+vim.keymap.set(
+    "n",
+    '<leader>th',
+    function() require('lsp-endhints').toggle() end, 
+    { silent = true, buffer = bufnr }
+)
+vim.keymap.set(
+    "n",
+    "<leader>a",
+    function()
+        vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
+        -- or vim.lsp.buf.codeAction() if you don't want grouping.
+    end,
+    { silent = true, buffer = bufnr }
+)
+vim.keymap.set(
+    "n",
+    "K",  -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+    function()
+        vim.cmd.RustLsp({'hover', 'actions'})
+    end,
+    { silent = true, buffer = bufnr }
+)

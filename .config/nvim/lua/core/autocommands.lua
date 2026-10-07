@@ -12,13 +12,13 @@ usercmd("OverseerRestartLast", function()
     end
 end, {})
 
-cmd({ "VimEnter" }, {
-    callback = function()
-        if vim.fn.argc() == 0 then
-            vim.cmd("Oil")
-        end
-    end,
-})
+-- cmd({ "VimEnter" }, {
+--     callback = function()
+--         if vim.fn.argc() == 0 then
+--             require("oil").open()
+--         end
+--     end,
+-- })
 
 -- disables code folding for the start screen
 cmd({ "FileType" }, {
@@ -71,14 +71,6 @@ cmd({ "User" }, {
   group = augroup("session save", { clear = true }),
   pattern = "SessionSavePost",
   command = "lua vim.notify('Session Saved', 'info')",
-})
-
--- disables autocomplete in some filetypes
-cmd({ "FileType" }, {
-  desc = "disable cmp in certain filetypes",
-  pattern = "gitcommit,gitrebase,text,markdown",
-  group = augroup("cmp_disable", { clear = true }),
-  command = "lua require('cmp').setup.buffer { enabled = false}",
 })
 
 -- fixes Trouble not closing when last window in tab

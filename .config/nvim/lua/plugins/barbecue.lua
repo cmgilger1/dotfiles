@@ -1,15 +1,6 @@
-return {
-    {
-        "utilyre/barbecue.nvim",
-        name = "barbecue",
-        version = "*",
-        event = "VimEnter",
-        dependencies = {
-            "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons", -- optional dependency
-        },
-        config = function()
-            require("barbecue").setup()
-        end,
-    },
-}
+vim.pack.add({
+    "https://github.com/SmiteshP/nvim-navic",
+    "https://github.com/utilyre/barbecue.nvim"
+})
+
+require('barbecue').setup()
